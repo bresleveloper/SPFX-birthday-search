@@ -24,7 +24,7 @@ export interface ISpfxBirthdaysSpSearchWebPartProps {
 export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<ISpfxBirthdaysSpSearchWebPartProps> {
 
   public render(): void {
-    this.domElement.innerHTML = `
+    /*this.domElement.innerHTML = `
       <div class="${ styles.spfxBirthdaysSpSearch }">
         <div class="${ styles.container }">
           <div class="${ styles.row }">
@@ -38,7 +38,10 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
             </div>
           </div>
         </div>
-      </div>`;
+      </div>`;*/
+      this.domElement.innerHTML = `<h2>Loading Birthdays</h2>`
+
+      this.getBirthdays();
   } 
 
 
@@ -49,12 +52,16 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
     currentMonth = currentMonth >= 10 ? currentMonth : '0' + currentMonth
     nextMonth = nextMonth >= 10 ? nextMonth : '0' + nextMonth
     
-    let searchQ = "querytext='BirthdayString:" + currentMonth + 
-        " OR BirthdayString:" + nextMonth + 
+    let searchQ = "querytext='Birthday:" + currentMonth + 
+        " OR Birthday:" + nextMonth + 
         "'&sourceid='b09a7990-05ea-4af9-81ef-edfab16c4e31'" +
-        "&rowlimit=1000&selectproperties='Title,WorkEmail,PreferredName,PictureURL,BirthdayString'"
+        "&rowlimit=1000&selectproperties='Title,WorkEmail,PreferredName,PictureURL,Birthday'"
 
-    this.search(searchQ, function (arr) {
+    //debug
+    searchQ = "querytext='Birthday:8'&sourceid='b09a7990-05ea-4af9-81ef-edfab16c4e31'" +
+    "&rowlimit=1000&selectproperties='Title,WorkEmail,PreferredName,PictureURL,Birthday'"
+
+    this.search(searchQ, (arr) => {
       let arr2 = []
       let currentMonth:any = new Date().getMonth() + 1
       let nextMonth = currentMonth +1;
@@ -76,11 +83,11 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
               emailNamesKeys[key] = true
           }//ohh common update the damn file
 
-          let dArr = up.BirthdayString.split(" ")[0].split("/")
+          let dArr = up.Birthday.split(" ")[0].split("/")
           let todayDay = new Date().getDate()
           let bDay = parseInt(dArr[0])
 
-          if ( 
+          if (    true || //debug
                   (dArr[1] == currentMonth && bDay >= todayDay) ||
                   (dArr[1] == nextMonth && bDay <= todayDay) 
               ) {
@@ -95,16 +102,37 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
       })
 
       console.log('birthdays arr', arr2);
-      
-      //comps.events.birthdaysArr = arr2
-      //call a fn that will build some html
+      this.buildHtml(arr2)
     });
   }
 
+  public buildHtml(arr2){
+    console.log(this.context.pageContext.user)
+  
+    let myName = this.context.pageContext.user.displayName;
+    let h2 = '';
+    h2 = '<div class="mdl-tabs__panel" >'
+    //'Title,WorkEmail,PreferredName,PictureURL,Birthday'
+    arr2.forEach(function (b) {
+      h2 += "<div class=\"article\">" +
+              "<div class=\"date light_blue fs16 inline-block\">" + b.showDateStr + "</div>" +
+              "<div class=\"excerptContainer inline-block\">" +
+                "<div class=\"excerpt dark_grey fs18\">" +
+                  b.PreferredName + " - " +
+                  "<a href=\"mailto:" + b.WorkEmail + "?subject=Happy Birthday From " + myName + "\">שלח ברכה</a>" +
+                "</div>" +
+                (b.PictureURL ? "<img src=\"" + b.PictureURL + "\">" : '') +
+              "</div>" +
+            "</div>"
+    });
+    h2 += '</div>'
+
+    this.domElement.innerHTML = h2;
+  }
 
   public searchOld(querystring, callback) {
     try {
-        function reqListenerSearchParser() {
+        let reqListenerSearchParser = function reqListenerSearchParser() {
             try {
                 let searchResultsFull = JSON.parse(this.responseText)
                 let results = searchResultsFull.d.query.PrimaryQueryResult.RelevantResults.Table.Rows.results;
@@ -152,16 +180,18 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
 
                   //assuming that value is the search res standard
                   //let searchResultsFull = JSON.parse(this.responseText)
-                  let results = data.value.d.query.PrimaryQueryResult.RelevantResults.Table.Rows.results;
+                  let results = data.PrimaryQueryResult.RelevantResults.Table.Rows;
                   let arr = []
   
+                  console.log('rows', results);
+
                   results.forEach(function (row) {
                       let item = {}
-                      row.Cells.results.forEach(function (cell) { item[cell.Key] = cell.Value })
+                      row.Cells.forEach(function (cell) { item[cell.Key] = cell.Value })
                       arr.push(item)
                   });
 
-
+                  console.log('normalized', arr);
                   callback(arr)
               });
           });
