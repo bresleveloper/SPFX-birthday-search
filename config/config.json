@@ -1,0 +1,18 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "spfx-birthdays-sp-search-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/spfxBirthdaysSpSearch/SpfxBirthdaysSpSearchWebPart.js",
+          "manifest": "./src/webparts/spfxBirthdaysSpSearch/SpfxBirthdaysSpSearchWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "SpfxBirthdaysSpSearchWebPartStrings": "lib/webparts/spfxBirthdaysSpSearch/loc/{locale}.js"
+  }
+}
