@@ -9,6 +9,14 @@ import { escape } from '@microsoft/sp-lodash-subset';
 import styles from './SpfxBirthdaysSpSearchWebPart.module.scss';
 import * as strings from 'SpfxBirthdaysSpSearchWebPartStrings';
 
+
+
+import {
+  SPHttpClient,
+  SPHttpClientResponse
+} from '@microsoft/sp-http';
+
+
 export interface ISpfxBirthdaysSpSearchWebPartProps {
   description: string;
 }
@@ -94,7 +102,7 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
   }
 
 
-  public search(querystring, callback) {
+  public searchOld(querystring, callback) {
     try {
         function reqListenerSearchParser() {
             try {
@@ -126,7 +134,38 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
         console.error(e)
         callback(null)
     }
-}
+  }
+
+  public search(query:string, callback): void {
+
+    console.log('search query', query);
+    //this.ajaxCounter++;
+
+    this.context.spHttpClient.get(
+      this.context.pageContext.web.absoluteUrl +
+      `/_api/search/query?` + query, SPHttpClient.configurations.v1)
+          .then((response: SPHttpClientResponse) => {
+              response.json().then((data)=> {
+
+                  console.log('search results', query, data);
+                  //this.listsContainer[listname] = data.value;
+
+                  //assuming that value is the search res standard
+                  //let searchResultsFull = JSON.parse(this.responseText)
+                  let results = data.value.d.query.PrimaryQueryResult.RelevantResults.Table.Rows.results;
+                  let arr = []
+  
+                  results.forEach(function (row) {
+                      let item = {}
+                      row.Cells.results.forEach(function (cell) { item[cell.Key] = cell.Value })
+                      arr.push(item)
+                  });
+
+
+                  callback(arr)
+              });
+          });
+    }
 
 
   protected get dataVersion(): Version {
