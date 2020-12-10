@@ -124,7 +124,7 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
     let myName = this.context.pageContext.user.displayName;
     let h2 = '';
     h2 = `<div class="${styles.spfxBirthdaysSpSearch}">
-            <div class="${styles["flex-col"]}">
+            <div class="${styles["flex-col"]} ${styles.shadowWrapper}">
               <h2>${this.properties.Title ? this.properties.Title : 'ימי הולדת'}</h2>
               <div class="${styles["flex-col"]}">`
 
