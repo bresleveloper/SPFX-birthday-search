@@ -8,8 +8,9 @@ must make sure you make sync
 `https://github.com/bresleveloper/SPFX-birthday-search`
 
 
+## download sln and run
 
-`gulp build`
-`gulp bundle --ship`
-`gulp package-solution --ship`
+* `gulp build`
+* `gulp bundle --ship`
+* `gulp package-solution --ship`
 
