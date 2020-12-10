@@ -1,6 +1,8 @@
 import { Version } from '@microsoft/sp-core-library';
 import {
   IPropertyPaneConfiguration,
+  PropertyPaneCheckbox,
+  PropertyPaneDropdown,
   PropertyPaneTextField
 } from '@microsoft/sp-property-pane';
 import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
@@ -18,32 +20,41 @@ import {
 
 
 export interface ISpfxBirthdaysSpSearchWebPartProps {
-  description: string;
+  Title: string;
+  Suffix: string;
+  Template: string;
 }
 
 export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<ISpfxBirthdaysSpSearchWebPartProps> {
 
-  public render(): void {
-    /*this.domElement.innerHTML = `
-      <div class="${ styles.spfxBirthdaysSpSearch }">
-        <div class="${ styles.container }">
-          <div class="${ styles.row }">
-            <div class="${ styles.column }">
-              <span class="${ styles.title }">Welcome to SharePoint!</span>
-              <p class="${ styles.subTitle }">Customize SharePoint experiences using Web Parts.</p>
-              <p class="${ styles.description }">${escape(this.properties.description)}</p>
-              <a href="https://aka.ms/spfx" class="${ styles.button }">
-                <span class="${ styles.label }">Learn more</span>
-              </a>
-            </div>
-          </div>
+  public templates = {
+    '1 line no image' : ` 
+      <a class="${styles.flex} ${styles.lineNoImage}" href="#MAILTO#">
+        <span class="${styles.date}">#DATE#</span>
+        <span class="name">#NAME#</span>
+        <span class="${styles.suffix}">#SUFFIX#</span>
+      </a>
+    `,
+    '3 lines with image' : ` 
+      <a class="lines-with-img-item ${styles.flex}" href="#MAILTO#">
+        <div class="img">
+          <img src="#SRC#"/>
         </div>
-      </div>`;*/
-      this.domElement.innerHTML = `<h2>Loading Birthdays</h2>`
 
-      this.getBirthdays();
+        <div class="details ${styles["flex-col"]}">
+          <span class="date">#DATE#"</span>
+          <span class="name">#NAME#"</span>
+          <span class="suffix">#SUFFIX#"</span>
+        </div>
+      </a>
+    `
+  }
+
+  public render(): void {
+    //console.log('I R THIS', this)
+    this.domElement.innerHTML = `<h2>Loading Birthdays</h2>`
+    this.getBirthdays();
   } 
-
 
   public getBirthdays(){
     let currentMonth:any = new Date().getMonth() + 1
@@ -58,8 +69,8 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
         "&rowlimit=1000&selectproperties='Title,WorkEmail,PreferredName,PictureURL,Birthday'"
 
     //debug
-    searchQ = "querytext='Birthday:8'&sourceid='b09a7990-05ea-4af9-81ef-edfab16c4e31'" +
-    "&rowlimit=1000&selectproperties='Title,WorkEmail,PreferredName,PictureURL,Birthday'"
+    //searchQ = "querytext='Birthday:8'&sourceid='b09a7990-05ea-4af9-81ef-edfab16c4e31'" +
+    //"&rowlimit=1000&selectproperties='Title,WorkEmail,PreferredName,PictureURL,Birthday'"
 
     this.search(searchQ, (arr) => {
       let arr2 = []
@@ -91,7 +102,8 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
                   (dArr[1] == currentMonth && bDay >= todayDay) ||
                   (dArr[1] == nextMonth && bDay <= todayDay) 
               ) {
-              up.showDateStr = dArr[0] + '.' + dArr[1]
+              //up.showDateStr = dArr[0] + '.' + dArr[1]
+              up.showDateStr = dArr[1] + '.' + dArr[0]
               up.date = new Date(2000, dArr[1], dArr[0])
               arr2.push(up)
           } 
@@ -111,21 +123,22 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
   
     let myName = this.context.pageContext.user.displayName;
     let h2 = '';
-    h2 = '<div class="mdl-tabs__panel" >'
-    //'Title,WorkEmail,PreferredName,PictureURL,Birthday'
-    arr2.forEach(function (b) {
-      h2 += "<div class=\"article\">" +
-              "<div class=\"date light_blue fs16 inline-block\">" + b.showDateStr + "</div>" +
-              "<div class=\"excerptContainer inline-block\">" +
-                "<div class=\"excerpt dark_grey fs18\">" +
-                  b.PreferredName + " - " +
-                  "<a href=\"mailto:" + b.WorkEmail + "?subject=Happy Birthday From " + myName + "\">שלח ברכה</a>" +
-                "</div>" +
-                (b.PictureURL ? "<img src=\"" + b.PictureURL + "\">" : '') +
-              "</div>" +
-            "</div>"
-    });
-    h2 += '</div>'
+    h2 = `<div class="${styles.spfxBirthdaysSpSearch}">
+            <div class="${styles["flex-col"]}">
+              <h2>${this.properties.Title ? this.properties.Title : 'ימי הולדת'}</h2>
+              <div class="${styles["flex-col"]}">`
+
+    let t = this.properties.Template ? this.templates[this.properties.Template] : this.templates['1 line no image'];
+    for (let i = 0; i < arr2.length; i++) {
+      const x = arr2[i];
+      h2 += t.replace('#MAILTO#', `mailto:${x.WorkEmail}?subject=Happy Birthday From ${myName}`)
+              .replace('#SRC#', (x.PictureURL ? "<img src=\"" + x.PictureURL + "\">" : ''))
+              .replace('#DATE#', x.showDateStr)
+              .replace('#NAME#', myName)
+              .replace('#SUFFIX#',this.properties.Suffix ? this.properties.Suffix : '')
+    }
+
+    h2 += '</div></div></div>'
 
     this.domElement.innerHTML = h2;
   }
@@ -213,10 +226,17 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
             {
               groupName: strings.BasicGroupName,
               groupFields: [
-                PropertyPaneTextField('description', {
-                  label: strings.DescriptionFieldLabel
+                PropertyPaneTextField('Title', {label: 'Title'}),
+                PropertyPaneTextField('Suffix', {label:'Suffix'}),
+                //https://techcommunity.microsoft.com/t5/sharepoint-developer/propertypanecheckbox-default-state-issue/m-p/75946
+                //PropertyPaneCheckbox('Template', {})
+                PropertyPaneDropdown('Template', {label:'Template', 
+                  options:[
+                    {key:'1 line no image',text:'1 line no image'},
+                    {key:'3 lines with image',text:'3 lines with image'},
+                  ]
                 })
-              ]
+              ]//end groupFields
             }
           ]
         }

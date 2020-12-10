@@ -1,6 +1,32 @@
 @import '~@microsoft/sp-office-ui-fabric-core/dist/sass/SPFabricCore.scss';
 
 .spfxBirthdaysSpSearch {
+  direction: rtl;
+  border: 1px solid grey;
+  border-radius: 25px;
+  padding: 25px;
+  padding-top: 5px;
+  color: #1f1f8e;
+  box-shadow: 1px 2px 3px 0px #7d7d7d, -2px 0px 5px 0px #7D7D7D;
+
+
+  .flex{display: flex;}
+  .flex-col{display: flex;flex-direction: column;}
+
+  .lineNoImage{
+    .date{width: 50px;}
+    .suffix{padding-right: 25px;}
+  }
+
+
+
+
+
+
+
+
+
+
   .container {
     max-width: 700px;
     margin: 0px auto;
