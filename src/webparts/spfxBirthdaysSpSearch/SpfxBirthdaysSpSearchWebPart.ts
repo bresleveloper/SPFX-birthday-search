@@ -21,8 +21,10 @@ import {
 
 export interface ISpfxBirthdaysSpSearchWebPartProps {
   Title: string;
+  Preffix: string;
   Suffix: string;
   Template: string;
+  GetBirthdays: string;
 }
 
 export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<ISpfxBirthdaysSpSearchWebPartProps> {
@@ -30,6 +32,7 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
   public templates = {
     '1 line no image' : ` 
       <a class="${styles.flex} ${styles.lineNoImage}" href="#MAILTO#">
+        <span class="${styles.preffix}">#PREFFIX#</span>
         <span class="${styles.date}">#DATE#</span>
         <span class="name">#NAME#</span>
         <span class="${styles.suffix}">#SUFFIX#</span>
@@ -42,6 +45,7 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
         </div>
 
         <div class="details ${styles["flex-col"]}">
+          <span class="preffix">#PREFFIX#"</span>
           <span class="date">#DATE#"</span>
           <span class="name">#NAME#"</span>
           <span class="suffix">#SUFFIX#"</span>
@@ -67,6 +71,16 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
         " OR Birthday:" + nextMonth + 
         "'&sourceid='b09a7990-05ea-4af9-81ef-edfab16c4e31'" +
         "&rowlimit=1000&selectproperties='Title,WorkEmail,PreferredName,PictureURL,Birthday'"
+
+    if (this.properties.GetBirthdays && this.properties.GetBirthdays == "Today") {
+      let day:any = new Date().getDate()
+      day = day >= 10 ? day : '0' + day;
+
+      searchQ = "querytext='Birthday:" + currentMonth + 
+        " AND Birthday:" + day + 
+        "'&sourceid='b09a7990-05ea-4af9-81ef-edfab16c4e31'" +
+        "&rowlimit=1000&selectproperties='Title,WorkEmail,PreferredName,PictureURL,Birthday'"
+    }
 
     //debug
     //searchQ = "querytext='Birthday:8'&sourceid='b09a7990-05ea-4af9-81ef-edfab16c4e31'" +
@@ -98,7 +112,13 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
           let todayDay = new Date().getDate()
           let bDay = parseInt(dArr[0])
 
-          if (    true || //debug
+          if (this.properties.GetBirthdays && this.properties.GetBirthdays == "Today") {
+            if (dArr[1] == currentMonth && bDay == todayDay) {
+              up.showDateStr = dArr[1] + '.' + dArr[0]
+              up.date = new Date(2000, dArr[1], dArr[0])
+              arr2.push(up)
+            }
+          } else if (    //true || //debug // month foreward
                   (dArr[1] == currentMonth && bDay >= todayDay) ||
                   (dArr[1] == nextMonth && bDay <= todayDay) 
               ) {
@@ -107,6 +127,7 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
               up.date = new Date(2000, dArr[1], dArr[0])
               arr2.push(up)
           } 
+
       }
 
       arr2.sort(function (a, b) {
@@ -133,6 +154,7 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
       const x = arr2[i];
       h2 += t.replace('#MAILTO#', `mailto:${x.WorkEmail}?subject=Happy Birthday From ${myName}`)
               .replace('#SRC#', (x.PictureURL ? "<img src=\"" + x.PictureURL + "\">" : ''))
+              .replace('#PREFFIX#',this.properties.Preffix ? this.properties.Preffix : '')
               .replace('#DATE#', x.showDateStr)
               .replace('#NAME#', myName)
               .replace('#SUFFIX#',this.properties.Suffix ? this.properties.Suffix : '')
@@ -227,6 +249,7 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
               groupName: strings.BasicGroupName,
               groupFields: [
                 PropertyPaneTextField('Title', {label: 'Title'}),
+                PropertyPaneTextField('Preffix', {label:'Preffix'}),
                 PropertyPaneTextField('Suffix', {label:'Suffix'}),
                 //https://techcommunity.microsoft.com/t5/sharepoint-developer/propertypanecheckbox-default-state-issue/m-p/75946
                 //PropertyPaneCheckbox('Template', {})
@@ -235,7 +258,13 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
                     {key:'1 line no image',text:'1 line no image'},
                     {key:'3 lines with image',text:'3 lines with image'},
                   ]
-                })
+                }),
+                PropertyPaneDropdown('GetBirthdays', {label:'Get Birthdays', 
+                  options:[
+                    {key:'Month Forward',text:'This Forward'},
+                    {key:'Today',text:'Today'},
+                  ]
+                }),
               ]//end groupFields
             }
           ]
