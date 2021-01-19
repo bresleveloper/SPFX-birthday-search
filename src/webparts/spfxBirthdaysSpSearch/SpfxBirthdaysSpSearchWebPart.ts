@@ -25,13 +25,16 @@ export interface ISpfxBirthdaysSpSearchWebPartProps {
   Suffix: string;
   Template: string;
   GetBirthdays: string;
+  //BGcolor: string;
+  //FontColor: string;
+  AddShadow:boolean;
 }
 
 export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<ISpfxBirthdaysSpSearchWebPartProps> {
 
   public templates = {
     '1 line no image' : ` 
-      <a class="${styles.flex} ${styles.lineNoImage}" href="#MAILTO#">
+      <a class="${styles.flex} ${styles.lineNoImage} ${styles.cleanA}" href="#MAILTO#">
         <span class="${styles.preffix}">#PREFFIX#</span>
         <span class="${styles.date}">#DATE#</span>
         <span class="name">#NAME#</span>
@@ -39,19 +42,31 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
       </a>
     `,
     '3 lines with image' : ` 
-      <a class="lines-with-img-item ${styles.flex}" href="#MAILTO#">
-        <div class="img">
-          <img src="#SRC#"/>
-        </div>
+      <a class="${styles.lineWithImage} ${styles.flex} ${styles.cleanA}" href="#MAILTO#">
+        <div class="img">#IMG#</div>
 
-        <div class="details ${styles["flex-col"]}">
-          <span class="preffix">#PREFFIX#"</span>
-          <span class="date">#DATE#"</span>
-          <span class="name">#NAME#"</span>
-          <span class="suffix">#SUFFIX#"</span>
+        <div class="${styles.details} ${styles["flex-col"]}">
+          <span class="preffix">#PREFFIX#</span>
+          <span class="date">#DATE#</span>
+          <span class="name">#NAME#</span>
+          <span class="suffix">#SUFFIX#</span>
         </div>
       </a>
-    `
+    `,
+    'image-title-department' : ` 
+    <a class="${styles.lineWithImage} ${styles.flex} ${styles.cleanA}" href="#MAILTO#">
+      <div class="${styles.img}">#IMG#</div>
+
+      <div class="${styles.details} ${styles["flex-col"]}">
+        <div>
+          <span class="preffix">#PREFFIX#</span>
+          <span class="${styles.name} ${styles.big}">#NAME#</span>
+          <span class="suffix">#SUFFIX#</span>
+        </div>
+        <span class="department">#DEP#</span>
+      </div>
+    </a>
+  `,
   }
 
   public render(): void {
@@ -81,7 +96,8 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
       searchQ = "querytext='RefinableString99:" + currentMonth + 
         " AND RefinableString99:" + day + 
         "'&sourceid='b09a7990-05ea-4af9-81ef-edfab16c4e31'" +
-        "&rowlimit=1000&selectproperties='Title,WorkEmail,PreferredName,PictureURL,RefinableString99'"
+        "&rowlimit=1000&selectproperties='Title,WorkEmail,PreferredName,PictureURL," + 
+        "RefinableString99,RefinableString98,RefinableString97,Department'"
     }
 
     //debug
@@ -91,6 +107,7 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
     //"&rowlimit=1000&selectproperties='Title,WorkEmail,PreferredName,PictureURL,RefinableString99'"
 
     this.search(searchQ, (arr) => {
+      console.log('arr in search callback', arr);
       let arr2 = []
       let currentMonth:any = new Date().getMonth() + 1
       let nextMonth = currentMonth +1;
@@ -102,6 +119,7 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
       //for some reason there are dups, i'll trim by email, which can be null
       let emailNamesKeys = {}
 
+      debugger
       //22/08/2000 00:00:00
       for (let i = 0; i < arr.length; i++) {
           const up = arr[i];
@@ -114,23 +132,33 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
           }//ohh common update the damn file
 
           //changed Birthday to RefinableString99
+          //RefinableString99: "1/18/2000 12:00:00 AM"
           let dArr = up.RefinableString99.split(" ")[0].split("/")
           let todayDay = new Date().getDate()
-          let bDay = parseInt(dArr[0])
+          //let bDay = parseInt(dArr[0])
+          console.log('dArr', dArr);
+          
+          let bDay = parseInt(dArr[1])
+          let bMonth = parseInt(dArr[0])
 
           if (this.properties.GetBirthdays && this.properties.GetBirthdays == "Today") {
-            if (dArr[1] == currentMonth && bDay == todayDay) {
-              up.showDateStr = dArr[1] + '.' + dArr[0]
-              up.date = new Date(2000, dArr[1], dArr[0])
+            if (bMonth == currentMonth && bDay == todayDay) {
+              //up.showDateStr = dArr[1] + '.' + dArr[0]
+              //up.date = new Date(2000, dArr[1], dArr[0])
+              up.showDateStr = bDay + '.' + currentMonth
+              up.date = new Date(2000, currentMonth, bDay)
               arr2.push(up)
             }
           } else if (    //true || //debug // month foreward
-                  (dArr[1] == currentMonth && bDay >= todayDay) ||
-                  (dArr[1] == nextMonth && bDay <= todayDay) 
-              ) {
-              //up.showDateStr = dArr[0] + '.' + dArr[1]
-              up.showDateStr = dArr[1] + '.' + dArr[0]
-              up.date = new Date(2000, dArr[1], dArr[0])
+                  //(dArr[1] == currentMonth && bDay >= todayDay) ||
+                  //(dArr[1] == nextMonth && bDay <= todayDay) 
+                  (currentMonth == currentMonth && bDay >= todayDay) ||
+                  (currentMonth == nextMonth && bDay <= todayDay) 
+            ) {
+              //up.showDateStr = dArr[1] + '.' + dArr[0]
+              //up.date = new Date(2000, dArr[1], dArr[0])
+              up.showDateStr = bDay + '.' + currentMonth
+              up.date = new Date(2000, currentMonth, bDay)
               arr2.push(up)
           } 
 
@@ -149,20 +177,24 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
     console.log(this.context.pageContext.user)
   
     let myName = this.context.pageContext.user.displayName;
+
     let h2 = '';
     h2 = `<div class="${styles.spfxBirthdaysSpSearch}">
-            <div class="${styles["flex-col"]} ${styles.shadowWrapper}">
+            <div class="${styles["flex-col"]} ${this.properties.AddShadow ? styles.shadowWrapper : styles.justPad}">
               <h2>${this.properties.Title ? this.properties.Title : 'ימי הולדת'}</h2>
               <div class="${styles["flex-col"]}">`
 
     let t = this.properties.Template ? this.templates[this.properties.Template] : this.templates['1 line no image'];
     for (let i = 0; i < arr2.length; i++) {
       const x = arr2[i];
+      let yourName = x['PreferredName'] ? x['PreferredName'] : x['Title']
+
       h2 += t.replace('#MAILTO#', `mailto:${x.WorkEmail}?subject=Happy Birthday From ${myName}`)
-              .replace('#SRC#', (x.PictureURL ? "<img src=\"" + x.PictureURL + "\">" : ''))
+              .replace('#IMG#', (x.PictureURL ? "<img src=\"" + x.PictureURL + "\">" : ''))
               .replace('#PREFFIX#',this.properties.Preffix ? this.properties.Preffix : '')
               .replace('#DATE#', x.showDateStr)
-              .replace('#NAME#', myName)
+              .replace('#NAME#', yourName)
+              .replace('#DEP#', ( x.RefinableString97 ? x.RefinableString97 : ''))
               .replace('#SUFFIX#',this.properties.Suffix ? this.properties.Suffix : '')
     }
 
@@ -261,6 +293,7 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
                 //PropertyPaneCheckbox('Template', {})
                 PropertyPaneDropdown('Template', {label:'Template', 
                   options:[
+                    {key:'image-title-department',text:'image-title-department'},
                     {key:'1 line no image',text:'1 line no image'},
                     {key:'3 lines with image',text:'3 lines with image'},
                   ]
@@ -271,6 +304,10 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
                     {key:'Today',text:'Today'},
                   ]
                 }),
+                //PropertyPaneTextField('BGcolor', {label:'Background Color'}),
+                //PropertyPaneTextField('FontColor', {label:'Font Color'}),
+                PropertyPaneCheckbox('AddShadow', {text:'Add Shadow Box'}),
+
               ]//end groupFields
             }
           ]
