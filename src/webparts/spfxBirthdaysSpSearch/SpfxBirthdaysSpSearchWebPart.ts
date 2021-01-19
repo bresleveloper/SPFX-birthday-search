@@ -64,8 +64,9 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
     let currentMonth:any = new Date().getMonth() + 1
     let nextMonth = currentMonth +1;
     nextMonth = nextMonth == 13 ? 1 : nextMonth
-    currentMonth = currentMonth >= 10 ? currentMonth : '0' + currentMonth
-    nextMonth = nextMonth >= 10 ? nextMonth : '0' + nextMonth
+    //was wrong...
+    //currentMonth = currentMonth >= 10 ? currentMonth : '0' + currentMonth
+    //nextMonth = nextMonth >= 10 ? nextMonth : '0' + nextMonth
     
     //changed Birthday to RefinableString99
     let searchQ = "querytext='RefinableString99:" + currentMonth + 
@@ -94,8 +95,9 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
       let currentMonth:any = new Date().getMonth() + 1
       let nextMonth = currentMonth +1;
       nextMonth = nextMonth == 13 ? 1 : nextMonth
-      currentMonth = currentMonth >= 10 ? currentMonth : '0' + currentMonth
-      nextMonth = nextMonth >= 10 ? nextMonth : '0' + nextMonth
+      //was wrong...
+      //currentMonth = currentMonth >= 10 ? currentMonth : '0' + currentMonth
+      //nextMonth = nextMonth >= 10 ? nextMonth : '0' + nextMonth
 
       //for some reason there are dups, i'll trim by email, which can be null
       let emailNamesKeys = {}
