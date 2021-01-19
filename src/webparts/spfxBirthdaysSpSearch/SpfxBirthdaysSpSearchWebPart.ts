@@ -67,27 +67,27 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
     currentMonth = currentMonth >= 10 ? currentMonth : '0' + currentMonth
     nextMonth = nextMonth >= 10 ? nextMonth : '0' + nextMonth
     
-    //changed Birthday to RefinableDate07
-    let searchQ = "querytext='RefinableDate07:" + currentMonth + 
-        " OR RefinableDate07:" + nextMonth + 
+    //changed Birthday to RefinableString99
+    let searchQ = "querytext='RefinableString99:" + currentMonth + 
+        " OR RefinableString99:" + nextMonth + 
         "'&sourceid='b09a7990-05ea-4af9-81ef-edfab16c4e31'" +
-        "&rowlimit=1000&selectproperties='Title,WorkEmail,PreferredName,PictureURL,RefinableDate07'"
+        "&rowlimit=1000&selectproperties='Title,WorkEmail,PreferredName,PictureURL,RefinableString99'"
 
     if (this.properties.GetBirthdays && this.properties.GetBirthdays == "Today") {
       let day:any = new Date().getDate()
       day = day >= 10 ? day : '0' + day;
 
-      searchQ = "querytext='RefinableDate07:" + currentMonth + 
-        " AND RefinableDate07:" + day + 
+      searchQ = "querytext='RefinableString99:" + currentMonth + 
+        " AND RefinableString99:" + day + 
         "'&sourceid='b09a7990-05ea-4af9-81ef-edfab16c4e31'" +
-        "&rowlimit=1000&selectproperties='Title,WorkEmail,PreferredName,PictureURL,RefinableDate07'"
+        "&rowlimit=1000&selectproperties='Title,WorkEmail,PreferredName,PictureURL,RefinableString99'"
     }
 
     //debug
     //searchQ = "querytext='Birthday:8'&sourceid='b09a7990-05ea-4af9-81ef-edfab16c4e31'" +
-    //searchQ = "querytext='RefinableDate07:8'&sourceid='b09a7990-05ea-4af9-81ef-edfab16c4e31'" +
+    //searchQ = "querytext='RefinableString99:8'&sourceid='b09a7990-05ea-4af9-81ef-edfab16c4e31'" +
     //"&rowlimit=1000&selectproperties='Title,WorkEmail,PreferredName,PictureURL,Birthday'"
-    //"&rowlimit=1000&selectproperties='Title,WorkEmail,PreferredName,PictureURL,RefinableDate07'"
+    //"&rowlimit=1000&selectproperties='Title,WorkEmail,PreferredName,PictureURL,RefinableString99'"
 
     this.search(searchQ, (arr) => {
       let arr2 = []
@@ -111,8 +111,8 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
               emailNamesKeys[key] = true
           }//ohh common update the damn file
 
-          //changed Birthday to RefinableDate07
-          let dArr = up.RefinableDate07.split(" ")[0].split("/")
+          //changed Birthday to RefinableString99
+          let dArr = up.RefinableString99.split(" ")[0].split("/")
           let todayDay = new Date().getDate()
           let bDay = parseInt(dArr[0])
 

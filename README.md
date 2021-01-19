@@ -4,7 +4,7 @@ uses sp search to get birthdays from user profile service
 
 must make sure you make sync
 
-then map `SPS:Birthday` to `RefinableDate07`
+then map `SPS:Birthday` to `RefinableString99`
 
 `https://github.com/bresleveloper/SPFX-birthday-search`
 
