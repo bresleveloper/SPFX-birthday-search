@@ -63,7 +63,7 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
           <span class="${styles.name} ${styles.big}">#NAME#</span>
           <span class="suffix">#SUFFIX#</span>
         </div>
-        <span class="department">#DEP#</span>
+        <span class="${styles.department}">#DEP#</span>
       </div>
     </a>
   `,
