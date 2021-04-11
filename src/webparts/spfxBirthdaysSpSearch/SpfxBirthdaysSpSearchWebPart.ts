@@ -28,6 +28,7 @@ export interface ISpfxBirthdaysSpSearchWebPartProps {
   //BGcolor: string;
   //FontColor: string;
   AddShadow:boolean;
+  Debug:boolean;
 }
 
 export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<ISpfxBirthdaysSpSearchWebPartProps> {
@@ -67,11 +68,30 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
       </div>
     </a>
   `,
+    '3-lines-image-dark':`
+      <a class="${styles.lineWithImage} ${styles.flex} ${styles.cleanA}" href="#MAILTO#">
+      <div class="img">#IMG#</div>
+
+      <div class="${styles.details} ${styles["flex-col"]}">
+        <div>
+          <span class="preffix">#PREFFIX#</span>
+          <span class="date">#DATE#</span>
+          <span class="name">#NAME#</span>
+          <span class="suffix">#SUFFIX#</span>
+        </div>
+        <span class="${styles.department}">#DEP#</span>
+      </div>
+    </a>
+    `
   }
 
   public render(): void {
     //console.log('I R THIS', this)
     this.domElement.innerHTML = `<h2>Loading Birthdays</h2>`
+    if (this.properties.Debug == true) {
+      this.buildHtml({})
+      return;
+    }
     this.getBirthdays();
   } 
 
@@ -119,7 +139,7 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
       //for some reason there are dups, i'll trim by email, which can be null
       let emailNamesKeys = {}
 
-      debugger
+      //debugger
       //22/08/2000 00:00:00
       for (let i = 0; i < arr.length; i++) {
           const up = arr[i];
@@ -296,6 +316,7 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
                     {key:'image-title-department',text:'image-title-department'},
                     {key:'1 line no image',text:'1 line no image'},
                     {key:'3 lines with image',text:'3 lines with image'},
+                    {key:'3-lines-image-dark',text:'3-lines-image-dark'},
                   ]
                 }),
                 PropertyPaneDropdown('GetBirthdays', {label:'Get Birthdays', 
@@ -307,6 +328,7 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
                 //PropertyPaneTextField('BGcolor', {label:'Background Color'}),
                 //PropertyPaneTextField('FontColor', {label:'Font Color'}),
                 PropertyPaneCheckbox('AddShadow', {text:'Add Shadow Box'}),
+                PropertyPaneCheckbox('Debug', {text:'Debug'}),
 
               ]//end groupFields
             }
