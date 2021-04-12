@@ -57,7 +57,7 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
     `,
     'image-title-department': ` 
     <a class="${styles.lineWithImage} ${styles.flex} ${styles.cleanA}" href="#MAILTO#">
-      <div class="${styles.img}">#IMG#</div>
+      <div class="${styles.lineWithImage}">#IMG#</div>
 
       <div class="${styles.details} ${styles["flex-col"]}">
         <div>
@@ -70,16 +70,17 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
     </a>
   `,
     '3-lines-image-dark': `
-      <a class="${styles.lineWithImage} ${styles.flex} ${styles.cleanA}" href="#MAILTO#">
-      <div class="img">#IMG#</div>
 
-      <div class="${styles.details} ${styles["flex-col"]}">
+      <a class="${styles.lineImageDark} ${styles.flex} ${styles.cleanA}" href="#MAILTO#">
+      <div class="${styles.img}">#IMG#</div>
+
+      <div class="${styles.lineImageDark} ${styles["flex-col"]}">
         <div>
-          <span class="preffix">#PREFFIX#</span>
-          <span class="date">#DATE#</span>
-          <span class="name">#NAME#</span>
-          <span class="suffix">#SUFFIX#</span>
-          <button class="message">#MESSAGE#</button>
+          <span class="${styles.preffix}">#PREFFIX#</span>
+          <span class="${styles.date}">#DATE#</span>
+          <span class="${styles.name}">#NAME#</span>
+          <span class="${styles.suffix}">#SUFFIX#</span>
+          <button class="${styles}">#MAILTO#</button>
         </div>
         <span class="${styles.department}">#DEP#</span>
       </div>
@@ -88,10 +89,54 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
   }
 
   public render(): void {
+    this.properties.Debug = true;
     //console.log('I R THIS', this)
     this.domElement.innerHTML = `<h2>Loading Birthdays</h2>`
     if (this.properties.Debug == true) {
-      this.buildHtml({})
+      this.buildHtml([{
+        // Culture: "he-IL",
+        //DocId: "17656901765554",
+        // DocumentSignature: "",
+        //EditProfileUrl: null,
+        //GeoLocationSource: "EUR",
+        //IsExternalContent: "false",
+        //ListId: null,
+        //PartitionId: "4b4fc818-94f8-44a2-9541-4cea3e234001",
+        PictureURL: "https://publicdomainvectors.org/tn_img/eco-systemedic-star.png",
+        PreferredName: "יניב גולדגלס",
+        //ProfileQueriesFoundYou: null,
+        // ProfileViewsLastMonth: null,
+        //ProfileViewsLastWeek: null,
+        //Rank: "16.9419651",
+        RefinableString99: "5/20/2000 12:00:00 AM",
+        //RenderTemplateId: "~sitecollection/_catalogs/masterpage/Display Templates/Search/Item_Default.js",
+        //ResultTypeId: null,
+        //ResultTypeIdList: null,
+        // SiteId: null,
+        Title: "יניב גולדגלס",
+        //UniqueId: null,
+        //: "0",
+        //WebId: null,
+        WorkEmail: "tehila1728@gmail.com",
+        // contentclass: "urn:content-class:SPSPeople",
+        date: new Date('Sat May 20 2000 00:00:00 GMT+0300 (Israel Daylight Time)'),
+        // piSearchResultId: "ARIAǂ1638d3bf-7f33-4e9a-a1d7-02779662f857ǂ0c7ee126-4faa-4b30-adc5-2a0caa8f1c4cǂ1638d3bf-7f33-4e9a-a1d7-02779662f857.1000.1ǂEUR:unknown:",
+        showDateStr: "20.4",
+        Message: "שלח ברכה"
+      }, {
+        PictureURL: 'https://publicdomainvectors.org/tn_img/five_pointed_star.png',
+        PreferredName: 'תהילה',
+        RefinableString99: "5/20/2000 12:00:00 AM",
+        Title: 'refaeli',
+        date: new Date('Sat May 20 2000 00:00:00 GMT+0300 (Israel Daylight Time)'),
+        showDateStr: "20.4",
+        WorkEmail: "tehila1728@gmail.com",
+        Message: "שליחת ברכה"
+
+
+
+      }])
+
       return;
     }
     this.getBirthdays();
@@ -218,6 +263,7 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
         .replace('#NAME#', yourName)
         .replace('#DEP#', (x.RefinableString97 ? x.RefinableString97 : ''))
         .replace('#SUFFIX#', this.properties.Suffix ? this.properties.Suffix : '')
+        .replace('#MAILTO#', this.properties.Message ? this.properties.Message : 'שליחת ברכה')
     }
 
     h2 += '</div></div></div>'
