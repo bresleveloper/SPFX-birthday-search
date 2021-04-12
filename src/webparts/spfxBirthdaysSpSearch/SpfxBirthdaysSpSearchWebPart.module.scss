@@ -43,6 +43,7 @@
       }
     }
     
+    
     .details{
       padding-right: 15px;
       font-family: Rubik,"Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system, BlinkMacSystemFont, "Roboto", "Helvetica Neue", sans-serif;
@@ -55,14 +56,30 @@
     }
   }
 
+.lineImageDark{
+  >div{background-color:#DA291C;}
+    .img{ 
+      min-width: 72px;
+      > img {
+         border-radius: 50%;
+         width: 70px;
+         height: 70px;
+      }
+    }
+     
+    .details{
+      padding-right: 15px;
+      font-family: Rubik,"Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system, BlinkMacSystemFont, "Roboto", "Helvetica Neue", sans-serif;
+      > div {
+        padding-top: 14px;
+      }
+      .name.big{ font-size: 16px;
+      color: black;}
+      .department{ font-size: 12px; margin-top: -4px; color:black}
 
-
-
-
-
-
-
-
+    }
+  }
+  
   .container {
     max-width: 700px;
     margin: 0px auto;
