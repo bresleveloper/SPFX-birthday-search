@@ -71,12 +71,13 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
   `,
     '3-lines-image-dark': `
 
-      <a class="${styles.lineImageDark} ${styles.flex} ${styles.cleanA}" href="#MAILTO#">
-      <div class="${styles.img}">#IMG#</div>
-
-      <div class="${styles.lineImageDark} ${styles["flex-col"]}">
+      <a class="lines-image-dark ${styles.lineImageDark} ${styles.flex} ${styles.cleanA}" href="#MAILTO#">
+      <div class="${styles.b}">#IMG#</div>
+      <div class=" ${styles["flex-col"]}">
         <div>
           <span class="${styles.preffix}">#PREFFIX#</span>
+          <span class="${styles.name} ${styles.a}">#FIRSTNAME#</span>
+          <br/>
           <span class="${styles.date}">#DATE#</span>
           <span class="${styles.name}">#NAME#</span>
           <span class="${styles.suffix}">#SUFFIX#</span>
@@ -125,6 +126,7 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
         Message: "שלח ברכה"
       }, {
         PictureURL: 'https://publicdomainvectors.org/tn_img/five_pointed_star.png',
+        FirstName: 'refaeli',
         PreferredName: 'תהילה',
         RefinableString99: "5/20/2000 12:00:00 AM",
         Title: 'refaeli',
@@ -154,7 +156,7 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
     let searchQ = "querytext='RefinableString99:" + currentMonth +
       " OR RefinableString99:" + nextMonth +
       "'&sourceid='b09a7990-05ea-4af9-81ef-edfab16c4e31'" +
-      "&rowlimit=1000&selectproperties='Title,WorkEmail,PreferredName,PictureURL,RefinableString99'"
+      "&rowlimit=1000&selectproperties='Title,WorkEmail,PreferredName,FirstName,PictureURL,RefinableString99'"
 
     if (this.properties.GetBirthdays && this.properties.GetBirthdays == "Today") {
       let day: any = new Date().getDate()
@@ -163,7 +165,7 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
       searchQ = "querytext='RefinableString99:" + currentMonth +
         " AND RefinableString99:" + day +
         "'&sourceid='b09a7990-05ea-4af9-81ef-edfab16c4e31'" +
-        "&rowlimit=1000&selectproperties='Title,WorkEmail,PreferredName,PictureURL," +
+        "&rowlimit=1000&selectproperties='Title,WorkEmail,PreferredName,FirstName,PictureURL," +
         "RefinableString99,RefinableString98,RefinableString97,Department'"
     }
 
@@ -247,7 +249,7 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
 
     let h2 = '';
     h2 = `<div class="${styles.spfxBirthdaysSpSearch}">
-            <div class="${styles["flex-col"]} ${this.properties.AddShadow ? styles.shadowWrapper : styles.justPad}">
+            <div class="#SPECIAL# ${styles["flex-col"]} ${this.properties.AddShadow ? styles.shadowWrapper : styles.justPad}">
               <h2>${this.properties.Title ? this.properties.Title : 'ימי הולדת'}</h2>
               <div class="${styles["flex-col"]}">`
 
@@ -255,6 +257,7 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
     for (let i = 0; i < arr2.length; i++) {
       const x = arr2[i];
       let yourName = x['PreferredName'] ? x['PreferredName'] : x['Title']
+      let firstName = x['FirstName'] ? x['FirstName'] : x['']
 
       h2 += t.replace('#MAILTO#', `mailto:${x.WorkEmail}?subject=Happy Birthday From ${myName}`)
         .replace('#IMG#', (x.PictureURL ? "<img src=\"" + x.PictureURL + "\">" : ''))
@@ -264,11 +267,30 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
         .replace('#DEP#', (x.RefinableString97 ? x.RefinableString97 : ''))
         .replace('#SUFFIX#', this.properties.Suffix ? this.properties.Suffix : '')
         .replace('#MAILTO#', this.properties.Message ? this.properties.Message : 'שליחת ברכה')
+        .replace('#FIRSTNAME#', firstName)
     }
 
     h2 += '</div></div></div>'
-
     this.domElement.innerHTML = h2;
+
+    let h3: string;
+    let three_line_dark = document.querySelector('.lines-image-dark');
+    console.log("three_line_dark ", three_line_dark);
+
+    let is_three_line_dark = false;
+    if (three_line_dark != null) {
+      is_three_line_dark = true
+    }
+    if (is_three_line_dark == true) {
+      console.log("the template is dark");
+
+      h3 = h2.replace('#SPECIAL#', `${styles["lines-image-dark"]}`)
+    }
+    else {
+      h3 = h2
+    }
+
+    this.domElement.innerHTML = h3;
   }
 
   public searchOld(querystring, callback) {

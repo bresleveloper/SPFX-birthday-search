@@ -6,36 +6,40 @@
     font-family: Rubik,"Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system, BlinkMacSystemFont, "Roboto", "Helvetica Neue", sans-serif;
   }
   > div {background-color: #68C8D1;}
-  
-.lineImageDark{
-  background-color:#da291c ;
-  .img{ 
-    min-width: 72px;
-    > img {
-       border-radius: 50%;
-       width: 70px;
-       height: 70px;
-    }
+  >.lines-image-dark{
+    background-color: white;
+    color: blue;
   }
   
+// .lineImageDark{
+//   //background-color:#da291c ;
+//   .img{ 
+//     min-width: 72px;
+//     > img {
+//        border-radius: 50%;
+//        width: 70px;
+//        height: 70px;
+//     }
+//   }
   
-  .details{
-    padding-right: 15px;
-    font-family: Rubik,"Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system, BlinkMacSystemFont, "Roboto", "Helvetica Neue", sans-serif;
-    > div {
-      padding-top: 14px;
-    }
-    .name.big{ font-size: 16px;}
-    .department{ font-size: 12px; margin-top: -4px;}
+  
+//   .details{
+//     padding-right: 15px;
+//     font-family: Rubik,"Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system, BlinkMacSystemFont, "Roboto", "Helvetica Neue", sans-serif;
+//     > div {
+//       padding-top: 14px;
+//     }
+//     .name.big{ font-size: 16px;}
+//     .department{ font-size: 12px; margin-top: -4px;}
 
-  }
-  color:black;
-  h2 {font-weight: unset;margin-top: 0;
-    font-family: Rubik,"Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system, BlinkMacSystemFont, "Roboto", "Helvetica Neue", sans-serif;
-  }
-  > div {background-color: #da291c;}
+//   }
+//   color:black;
+//   h2 {font-weight: unset;margin-top: 0;
+//     font-family: Rubik,"Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system, BlinkMacSystemFont, "Roboto", "Helvetica Neue", sans-serif;
+//   }
+//   //> //div {background-color: #da291c;}
 
-}
+// }
   .justPad{padding: 25px;}
 
   .shadowWrapper{
@@ -65,17 +69,17 @@
     border-radius: 50%;
     width: 70px;
     height: 70px;
-    // .img{ 
-    //   min-width: 72px;
-    //   border-radius: 50%;
-    //   width: 70px;
-    //   height: 70px;
-    //   > img {
-    //      border-radius: 50%;
-    //      width: 70px;
-    //      height: 70px;
-    //   }
-    // }
+    .img{ 
+      min-width: 72px;
+      border-radius: 50%;
+      width: 80px;
+      height: 70px;
+      > img {
+         border-radius: 50%;
+         width: 70px;
+         height: 70px;
+      }
+    }
     
     
     .details{
@@ -89,27 +93,35 @@
 
     }
   }
-  .lineImageDark{
-    .preffix,.suffix,.department{color: red;}
-   // background-color: #da291c;
-    .name,.date{
-      color: black;
-      }
-      .img{
-        border-radius: 50%;
-        width: 70px;
-        height: 70px;
-      }
-       .details{
-         padding-right: 15px;
-         font-family: Rubik,"Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system, BlinkMacSystemFont, "Roboto", "Helvetica Neue", sans-serif;
-         > div {
-           padding-top: 14px;
-         }
-         //.name.big{ font-size: 16px;}
 
-         .department{ font-size: 12px; margin-top: -4px;}
-         }
+ 
+  .lineImageDark{
+    //.preffix,.suffix,.department{color: red;}
+   // background-color: #da291c;
+   .b >img{
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+  }
+  .name,.date{
+      color: blue;
+      }
+     
+.a{
+  font-size: 16px;
+  font-weight: bold;
+}
+
+     
+  .details{
+  padding-right: 15px;
+  font-family: Rubik,"Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system, BlinkMacSystemFont, "Roboto", "Helvetica Neue", sans-serif;
+  > div {
+    padding-top: 14px;
+  }
+  //.name.big{ font-size: 16p
+  .department{ font-size: 12px; margin-top: -4px;}
+  }
 }
 
   
