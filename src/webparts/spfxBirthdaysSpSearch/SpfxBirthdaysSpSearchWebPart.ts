@@ -35,7 +35,7 @@ export interface ISpfxBirthdaysSpSearchWebPartProps {
 export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<ISpfxBirthdaysSpSearchWebPartProps> {
 
   public templates = {
-    '1 line no image': ` 
+    '1 line no image': `
       <a class="${styles.flex} ${styles.lineNoImage} ${styles.cleanA}" href="#MAILTO#">
         <span class="${styles.preffix}">#PREFFIX#</span>
         <span class="${styles.date}">#DATE#</span>
@@ -43,9 +43,9 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
         <span class="${styles.suffix}">#SUFFIX#</span>
       </a>
     `,
-    '3 lines with image': ` 
+    '3 lines with image': `
       <a class="${styles.lineWithImage} ${styles.flex} ${styles.cleanA}" href="#MAILTO#">
-        <div class="img">#IMG#</div>
+        <div class="${styles.img}">#IMG#</div>
 
         <div class="${styles.details} ${styles["flex-col"]}">
           <span class="preffix">#PREFFIX#</span>
@@ -55,9 +55,9 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
         </div>
       </a>
     `,
-    'image-title-department': ` 
+    'image-title-department': `
     <a class="${styles.lineWithImage} ${styles.flex} ${styles.cleanA}" href="#MAILTO#">
-      <div class="${styles.lineWithImage}">#IMG#</div>
+      <div class="${styles.img}">#IMG#</div>
 
       <div class="${styles.details} ${styles["flex-col"]}">
         <div>
@@ -74,16 +74,14 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
       <a class="lines-image-dark ${styles.lineImageDark} ${styles.flex} ${styles.cleanA}" href="#MAILTO#">
       <div class="${styles.b}">#IMG#</div>
       <div class=" ${styles["flex-col"]}">
-        <div>
           <span class="${styles.preffix}">#PREFFIX#</span>
-          <span class="${styles.name} ${styles.a}">#FIRSTNAME#</span>
-          <br/>
-          <span class="${styles.date}">#DATE#</span>
+          <span class="${styles.name} ${styles.boldA}">#FIRSTNAME#</span>
           <span class="${styles.name}">#NAME#</span>
           <span class="${styles.suffix}">#SUFFIX#</span>
-          <button class="${styles}">#MAILTO#</button>
-        </div>
         <span class="${styles.department}">#DEP#</span>
+      </div>
+      <div class="${styles['send-bless']}">
+        <button class="${styles.darkButton}">#MAILTO#</button>
       </div>
     </a>
     `
@@ -103,7 +101,7 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
         //IsExternalContent: "false",
         //ListId: null,
         //PartitionId: "4b4fc818-94f8-44a2-9541-4cea3e234001",
-        PictureURL: "https://publicdomainvectors.org/tn_img/eco-systemedic-star.png",
+        PictureURL: "https://images.squarespace-cdn.com/content/v1/5a7c0544d74cffa3a6ce66b3/1587740850248-HT0QC4V60Y17PK8D1A6F/ke17ZwdGBToddI8pDm48kFWxnDtCdRm2WA9rXcwtIYR7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z5QPOohDIaIeljMHgDF5CVlOqpeNLcJ80NK65_fV7S1UcTSrQkGwCGRqSxozz07hWZrYGYYH8sg4qn8Lpf9k1pYMHPsat2_S1jaQY3SwdyaXg/%D7%AA%D7%9E%D7%95%D7%A0%D7%AA+%D7%A0%D7%95%D7%A3+-+%D7%90%D7%92%D7%9D++%D7%92%D7%90%D7%A8%D7%93%D7%94+%D7%90%D7%99%D7%98%D7%9C%D7%99%D7%94.jpg?format=2500w",
         PreferredName: "יניב גולדגלס",
         //ProfileQueriesFoundYou: null,
         // ProfileViewsLastMonth: null,
@@ -114,7 +112,7 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
         //ResultTypeId: null,
         //ResultTypeIdList: null,
         // SiteId: null,
-        Title: "יניב גולדגלס",
+        Title: "רונית שרייבר",
         //UniqueId: null,
         //: "0",
         //WebId: null,
@@ -125,7 +123,46 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
         showDateStr: "20.4",
         Message: "שלח ברכה"
       }, {
-        PictureURL: 'https://publicdomainvectors.org/tn_img/five_pointed_star.png',
+        PictureURL: 'https://www.sananes.co.il/media/catalog/product/cache/1/thumbnail/795x/17f82f742ffe127f42dca9de82fb58b1/0/1/018ve.jpg',
+        FirstName: 'refaeli',
+        PreferredName: 'תהילה',
+        RefinableString99: "5/20/2000 12:00:00 AM",
+        Title: 'refaeli',
+        date: new Date('Sat May 20 2000 00:00:00 GMT+0300 (Israel Daylight Time)'),
+        showDateStr: "20.4",
+        WorkEmail: "tehila1728@gmail.com",
+        Message: "שליחת ברכה"
+
+
+
+      }, {
+        PictureURL: 'https://www.sananes.co.il/media/catalog/product/cache/1/thumbnail/795x/17f82f742ffe127f42dca9de82fb58b1/0/1/018ve.jpg',
+        FirstName: 'refaeli',
+        PreferredName: 'תהילה',
+        RefinableString99: "5/20/2000 12:00:00 AM",
+        Title: 'refaeli',
+        date: new Date('Sat May 20 2000 00:00:00 GMT+0300 (Israel Daylight Time)'),
+        showDateStr: "20.4",
+        WorkEmail: "tehila1728@gmail.com",
+        Message: "שליחת ברכה"
+
+
+
+      }, {
+        PictureURL: 'https://www.sananes.co.il/media/catalog/product/cache/1/thumbnail/795x/17f82f742ffe127f42dca9de82fb58b1/0/1/018ve.jpg',
+        FirstName: 'refaeli',
+        PreferredName: 'תהילה',
+        RefinableString99: "5/20/2000 12:00:00 AM",
+        Title: 'refaeli',
+        date: new Date('Sat May 20 2000 00:00:00 GMT+0300 (Israel Daylight Time)'),
+        showDateStr: "20.4",
+        WorkEmail: "tehila1728@gmail.com",
+        Message: "שליחת ברכה"
+
+
+
+      }, {
+        PictureURL: 'https://www.sananes.co.il/media/catalog/product/cache/1/thumbnail/795x/17f82f742ffe127f42dca9de82fb58b1/0/1/018ve.jpg',
         FirstName: 'refaeli',
         PreferredName: 'תהילה',
         RefinableString99: "5/20/2000 12:00:00 AM",
@@ -220,7 +257,7 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
           }
         } else if (    //true || //debug // month foreward
           //(dArr[1] == currentMonth && bDay >= todayDay) ||
-          //(dArr[1] == nextMonth && bDay <= todayDay) 
+          //(dArr[1] == nextMonth && bDay <= todayDay)
           (currentMonth == currentMonth && bDay >= todayDay) ||
           (currentMonth == nextMonth && bDay <= todayDay)
         ) {

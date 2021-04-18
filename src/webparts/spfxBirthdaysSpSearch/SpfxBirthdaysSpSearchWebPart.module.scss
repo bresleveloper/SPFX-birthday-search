@@ -1,130 +1,198 @@
-@import '~@microsoft/sp-office-ui-fabric-core/dist/sass/SPFabricCore.scss';
+@import "~@microsoft/sp-office-ui-fabric-core/dist/sass/SPFabricCore.scss";
 
 .spfxBirthdaysSpSearch {
+  overflow: auto;
+  max-height: 380px;
   color: white;
-  h2 {font-weight: unset;margin-top: 0;
-    font-family: Rubik,"Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system, BlinkMacSystemFont, "Roboto", "Helvetica Neue", sans-serif;
+  h2 {
+    font-weight: unset;
+    margin-top: 0;
+    font-family: Rubik, "Segoe UI", "Segoe UI Web (West European)", "Segoe UI",
+      -apple-system, BlinkMacSystemFont, "Roboto", "Helvetica Neue", sans-serif;
   }
-  > div {background-color: #68C8D1;}
-  >.lines-image-dark{
+  > div {
+    background-color: #68c8d1;
+  }
+  > .lines-image-dark {
     background-color: white;
     color: blue;
   }
-  
-// .lineImageDark{
-//   //background-color:#da291c ;
-//   .img{ 
-//     min-width: 72px;
-//     > img {
-//        border-radius: 50%;
-//        width: 70px;
-//        height: 70px;
-//     }
-//   }
-  
-  
-//   .details{
-//     padding-right: 15px;
-//     font-family: Rubik,"Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system, BlinkMacSystemFont, "Roboto", "Helvetica Neue", sans-serif;
-//     > div {
-//       padding-top: 14px;
-//     }
-//     .name.big{ font-size: 16px;}
-//     .department{ font-size: 12px; margin-top: -4px;}
 
-//   }
-//   color:black;
-//   h2 {font-weight: unset;margin-top: 0;
-//     font-family: Rubik,"Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system, BlinkMacSystemFont, "Roboto", "Helvetica Neue", sans-serif;
-//   }
-//   //> //div {background-color: #da291c;}
+  .lineImageDark {
+    //background-color:#da291c ;
+    .img {
+      min-width: 72px;
+      > img {
+        border-radius: 50%;
+        width: 70px;
+        height: 70px;
+      }
+    }
+    .details {
+      padding-right: 15px;
+      font-family: Rubik, "Segoe UI", "Segoe UI Web (West European)", "Segoe UI",
+        -apple-system, BlinkMacSystemFont, "Roboto", "Helvetica Neue",
+        sans-serif;
+      > div {
+        padding-top: 14px;
+      }
+      .name.big {
+        font-size: 16px;
+      }
+      .department {
+        font-size: 12px;
+        margin-top: -4px;
+      }
+    }
+    color: black;
+    h2 {
+      font-weight: unset;
+      margin-top: 0;
+      font-family: Rubik, "Segoe UI", "Segoe UI Web (West European)", "Segoe UI",
+        -apple-system, BlinkMacSystemFont, "Roboto", "Helvetica Neue",
+        sans-serif;
+    }
+    //> //div {background-color: #da291c;}
+  }
+  .justPad {
+    padding: 25px;
+  }
 
-// }
-  .justPad{padding: 25px;}
-
-  .shadowWrapper{
+  .shadowWrapper {
     direction: rtl;
     border-radius: 6px;
     padding: 25px;
     padding-top: 5px;
     /*color: #1f1f8e;*/
-    box-shadow: 1px 2px 3px 0 #bbb,-2px 0 5px 0 #ccc
+    box-shadow: 1px 2px 3px 0 #bbb, -2px 0 5px 0 #ccc;
   }
 
-  .flex{display: flex;}
-  .flex-col{display: flex;flex-direction: column;}
+  .flex {
+    display: flex;
+  }
+  .flex-col {
+    display: flex;
+    flex-direction: column;
+  }
 
-  .cleanA, .cleanA:hover, .cleanA:visited, .cleanA:active{
+  .cleanA,
+  .cleanA:hover,
+  .cleanA:visited,
+  .cleanA:active {
     text-decoration: none;
     color: white;
   }
 
-  .lineNoImage{
-    .preffix{padding-left: 25px;}
-    .date{width: 50px;}
-    .suffix{padding-right: 25px;}
+  .lineNoImage {
+    .preffix {
+      padding-left: 25px;
+    }
+    .date {
+      width: 50px;
+    }
+    .suffix {
+      padding-right: 25px;
+    }
   }
 
-  .lineWithImage{
+  .lineWithImage {
     border-radius: 50%;
     width: 70px;
     height: 70px;
-    .img{ 
+    .img {
       min-width: 72px;
       border-radius: 50%;
       width: 80px;
       height: 70px;
       > img {
-         border-radius: 50%;
-         width: 70px;
-         height: 70px;
+        border-radius: 50%;
+        width: 70px;
+        height: 70px;
       }
     }
-    
-    
-    .details{
+
+    .details {
       padding-right: 15px;
-      font-family: Rubik,"Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system, BlinkMacSystemFont, "Roboto", "Helvetica Neue", sans-serif;
-      > div {
+      font-family: Rubik, "Segoe UI", "Segoe UI Web (West European)", "Segoe UI",
+        -apple-system, BlinkMacSystemFont, "Roboto", "Helvetica Neue",
+        sans-serif;
+      div {
         padding-top: 14px;
       }
-      .name.big{ font-size: 16px;}
-      .department{ font-size: 12px; margin-top: -4px;}
-
+      .name.big {
+        font-size: 16px;
+      }
+      .department {
+        font-size: 12px;
+        margin-top: -4px;
+      }
     }
   }
 
- 
-  .lineImageDark{
+  .lineImageDark {
+    padding: 10px;
+    .send-bless {
+      margin-right: 100px;
+      margin-left: 100px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
     //.preffix,.suffix,.department{color: red;}
-   // background-color: #da291c;
-   .b >img{
-    border-radius: 50%;
-    width: 70px;
-    height: 70px;
-  }
-  .name,.date{
-      color: blue;
+    // background-color: #da291c;
+    .b {
+      img {
+        border-radius: 50%;
+        width: 70px;
+        height: 70px;
       }
-     
-.a{
-  font-size: 16px;
-  font-weight: bold;
-}
+    }
+    .flex-col {
+      padding-left: 20px;
+      padding-right: 20px;
 
-     
-  .details{
-  padding-right: 15px;
-  font-family: Rubik,"Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system, BlinkMacSystemFont, "Roboto", "Helvetica Neue", sans-serif;
-  > div {
-    padding-top: 14px;
-  }
-  //.name.big{ font-size: 16p
-  .department{ font-size: 12px; margin-top: -4px;}
-  }
-}
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+    }
+    .darkButton {
+      color: #34526a;
+      background: #ebf5ff;
+      border: 1px #364366 solid;
+      border-radius: 14px 5px 5px 5px;
+      padding: 3px;
+      padding-right: 6px;
+      padding-left: 6px;
+      font-weight: 600;
+    }
+    .name {
+      color: #1e385d;
+    }
+    .date {
+      color: blue;
+    }
 
-  
+    .boldA {
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .details {
+      padding-right: 15px;
+      font-family: Rubik, "Segoe UI", "Segoe UI Web (West European)", "Segoe UI",
+        -apple-system, BlinkMacSystemFont, "Roboto", "Helvetica Neue",
+        sans-serif;
+      div {
+        padding-top: 14px;
+      }
+      //.name.big{ font-size: 16p
+      .department {
+        font-size: 12px;
+        margin-top: -4px;
+      }
+    }
+  }
+
   .container {
     max-width: 700px;
     margin: 0px auto;
@@ -175,7 +243,8 @@
     // Basic Button
     outline: transparent;
     position: relative;
-    font-family: "Segoe UI WestEuropean","Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,"Helvetica Neue",sans-serif;
+    font-family: "Segoe UI WestEuropean", "Segoe UI", -apple-system,
+      BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
     -webkit-font-smoothing: antialiased;
     font-size: $ms-font-size-m;
     font-weight: $ms-font-weight-regular;
@@ -195,8 +264,4 @@
       display: inline-block;
     }
   }
-
-
-
-  
 }
