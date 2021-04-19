@@ -95,33 +95,12 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
     this.domElement.innerHTML = `<h2>Loading Birthdays</h2>`
     if (this.properties.Debug == true) {
       this.buildHtml([{
-        // Culture: "he-IL",
-        //DocId: "17656901765554",
-        // DocumentSignature: "",
-        //EditProfileUrl: null,
-        //GeoLocationSource: "EUR",
-        //IsExternalContent: "false",
-        //ListId: null,
-        //PartitionId: "4b4fc818-94f8-44a2-9541-4cea3e234001",
         PictureURL: "https://images.squarespace-cdn.com/content/v1/5a7c0544d74cffa3a6ce66b3/1587740850248-HT0QC4V60Y17PK8D1A6F/ke17ZwdGBToddI8pDm48kFWxnDtCdRm2WA9rXcwtIYR7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z5QPOohDIaIeljMHgDF5CVlOqpeNLcJ80NK65_fV7S1UcTSrQkGwCGRqSxozz07hWZrYGYYH8sg4qn8Lpf9k1pYMHPsat2_S1jaQY3SwdyaXg/%D7%AA%D7%9E%D7%95%D7%A0%D7%AA+%D7%A0%D7%95%D7%A3+-+%D7%90%D7%92%D7%9D++%D7%92%D7%90%D7%A8%D7%93%D7%94+%D7%90%D7%99%D7%98%D7%9C%D7%99%D7%94.jpg?format=2500w",
         PreferredName: "יניב גולדגלס",
-        //ProfileQueriesFoundYou: null,
-        // ProfileViewsLastMonth: null,
-        //ProfileViewsLastWeek: null,
-        //Rank: "16.9419651",
         RefinableString99: "5/20/2000 12:00:00 AM",
-        //RenderTemplateId: "~sitecollection/_catalogs/masterpage/Display Templates/Search/Item_Default.js",
-        //ResultTypeId: null,
-        //ResultTypeIdList: null,
-        // SiteId: null,
         Title: "רונית שרייבר",
-        //UniqueId: null,
-        //: "0",
-        //WebId: null,
         WorkEmail: "tehila1728@gmail.com",
-        // contentclass: "urn:content-class:SPSPeople",
         date: new Date('Sat May 20 2000 00:00:00 GMT+0300 (Israel Daylight Time)'),
-        // piSearchResultId: "ARIAǂ1638d3bf-7f33-4e9a-a1d7-02779662f857ǂ0c7ee126-4faa-4b30-adc5-2a0caa8f1c4cǂ1638d3bf-7f33-4e9a-a1d7-02779662f857.1000.1ǂEUR:unknown:",
         showDateStr: "20.4",
         Message: "שלח ברכה"
       }, {
