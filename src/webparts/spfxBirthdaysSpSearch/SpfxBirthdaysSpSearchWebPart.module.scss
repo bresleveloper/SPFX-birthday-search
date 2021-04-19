@@ -4,6 +4,7 @@
   overflow: auto;
   max-height: 380px;
   color: white;
+  direction: rtl;
   h2 {
     font-weight: unset;
     margin-top: 0;
@@ -131,15 +132,19 @@
 
   .lineImageDark {
     padding: 10px;
+    display: flex;
+    justify-content: space-between;
     .send-bless {
-      margin-right: 100px;
-      margin-left: 100px;
       display: flex;
       flex-direction: column;
       justify-content: center;
     }
     //.preffix,.suffix,.department{color: red;}
     // background-color: #da291c;
+    .text-and-img {
+      display: flex;
+    }
+
     .b {
       img {
         border-radius: 50%;

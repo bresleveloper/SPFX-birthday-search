@@ -72,6 +72,7 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
     '3-lines-image-dark': `
 
       <a class="lines-image-dark ${styles.lineImageDark} ${styles.flex} ${styles.cleanA}" href="#MAILTO#">
+      <div class="${styles['text-and-img']}">
       <div class="${styles.b}">#IMG#</div>
       <div class=" ${styles["flex-col"]}">
           <span class="${styles.preffix}">#PREFFIX#</span>
@@ -79,6 +80,7 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
           <span class="${styles.name}">#NAME#</span>
           <span class="${styles.suffix}">#SUFFIX#</span>
         <span class="${styles.department}">#DEP#</span>
+      </div>
       </div>
       <div class="${styles['send-bless']}">
         <button class="${styles.darkButton}">#MAILTO#</button>
