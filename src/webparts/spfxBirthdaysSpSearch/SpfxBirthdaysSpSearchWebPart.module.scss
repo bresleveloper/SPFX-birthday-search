@@ -1,27 +1,28 @@
 @import "~@microsoft/sp-office-ui-fabric-core/dist/sass/SPFabricCore.scss";
 
+
+.spfxBirthdaysSpSearch.noBG {
+  > div { background-color: inherit; }
+}
+
 .spfxBirthdaysSpSearch {
   overflow: auto;
   max-height: 380px;
   color: white;
   direction: rtl;
+
   h2 {
     font-weight: unset;
     margin-top: 0;
     font-family: Rubik, "Segoe UI", "Segoe UI Web (West European)", "Segoe UI",
       -apple-system, BlinkMacSystemFont, "Roboto", "Helvetica Neue", sans-serif;
   }
-  > div {
-    background-color: #68c8d1;
-  }
-  > .lines-image-dark {
-    background-color: white;
-    color: blue;
-  }
+  > div { background-color: #68c8d1; }
 
   .lineImageDark {
-    //background-color:#da291c ;
+    h2 { color: black; }
     .img {
+      padding-left: 20px;
       min-width: 72px;
       > img {
         border-radius: 50%;
@@ -46,15 +47,53 @@
       }
     }
     color: black;
-    h2 {
-      font-weight: unset;
-      margin-top: 0;
+
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    font-family: arial;
+
+
+    .send-bless {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      color: blue;
+    }
+
+    .darkButton {
+      color: #34526a;
+      background: #ebf5ff;
+      border: 1px #364366 solid;
+      border-radius: 14px 5px 5px 5px;
+      padding: 3px;
+      padding-right: 6px;
+      padding-left: 6px;
+      font-weight: 600;
+      min-width: 85px;
+    }
+    .name { color: #1e385d; }
+
+    .boldA {
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .details {
+      padding-right: 15px;
       font-family: Rubik, "Segoe UI", "Segoe UI Web (West European)", "Segoe UI",
         -apple-system, BlinkMacSystemFont, "Roboto", "Helvetica Neue",
         sans-serif;
+      div {
+        padding-top: 14px;
+      }
+      .department {
+        font-size: 12px;
+        margin-top: -4px;
+      }
     }
-    //> //div {background-color: #da291c;}
   }
+
   .justPad {
     padding: 25px;
   }
@@ -74,6 +113,7 @@
   .flex-col {
     display: flex;
     flex-direction: column;
+    justify-content: center;
   }
 
   .cleanA,
@@ -81,7 +121,6 @@
   .cleanA:visited,
   .cleanA:active {
     text-decoration: none;
-    color: white;
   }
 
   .lineNoImage {
@@ -123,74 +162,6 @@
       .name.big {
         font-size: 16px;
       }
-      .department {
-        font-size: 12px;
-        margin-top: -4px;
-      }
-    }
-  }
-
-  .lineImageDark {
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
-    .send-bless {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-    //.preffix,.suffix,.department{color: red;}
-    // background-color: #da291c;
-    .text-and-img {
-      display: flex;
-    }
-
-    .b {
-      img {
-        border-radius: 50%;
-        width: 70px;
-        height: 70px;
-      }
-    }
-    .flex-col {
-      padding-left: 20px;
-      padding-right: 20px;
-
-      display: flex;
-      justify-content: center;
-      flex-direction: column;
-    }
-    .darkButton {
-      color: #34526a;
-      background: #ebf5ff;
-      border: 1px #364366 solid;
-      border-radius: 14px 5px 5px 5px;
-      padding: 3px;
-      padding-right: 6px;
-      padding-left: 6px;
-      font-weight: 600;
-    }
-    .name {
-      color: #1e385d;
-    }
-    .date {
-      color: blue;
-    }
-
-    .boldA {
-      font-size: 16px;
-      font-weight: bold;
-    }
-
-    .details {
-      padding-right: 15px;
-      font-family: Rubik, "Segoe UI", "Segoe UI Web (West European)", "Segoe UI",
-        -apple-system, BlinkMacSystemFont, "Roboto", "Helvetica Neue",
-        sans-serif;
-      div {
-        padding-top: 14px;
-      }
-      //.name.big{ font-size: 16p
       .department {
         font-size: 12px;
         margin-top: -4px;

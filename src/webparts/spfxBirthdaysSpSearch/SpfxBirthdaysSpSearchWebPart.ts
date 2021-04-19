@@ -69,24 +69,24 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
       </div>
     </a>
   `,
-    '3-lines-image-dark': `
-
-      <a class="lines-image-dark ${styles.lineImageDark} ${styles.flex} ${styles.cleanA}" href="#MAILTO#">
-      <div class="${styles['text-and-img']}">
-      <div class="${styles.b}">#IMG#</div>
-      <div class=" ${styles["flex-col"]}">
-          <span class="${styles.preffix}">#PREFFIX#</span>
-          <span class="${styles.name} ${styles.boldA}">#FIRSTNAME#</span>
-          <span class="${styles.name}">#NAME#</span>
-          <span class="${styles.suffix}">#SUFFIX#</span>
-        <span class="${styles.department}">#DEP#</span>
-      </div>
+  '3-lines-image-dark': `
+    <a class="lines-image-dark ${styles.lineImageDark} ${styles.flex} ${styles.cleanA}" href="#MAILTO#">
+      <div class="${styles.flex}">
+        <div class="${styles.img}">#IMG#</div>
+        <div class=" ${styles["flex-col"]}">
+          <div class="">
+              <span class="${styles.preffix}">#PREFFIX#</span>
+              <span class="${styles.name} ${styles.boldA}">#NAME#</span>
+              <span class="${styles.suffix}">#SUFFIX#</span>
+              <span class="date">#DATE#</span>
+          </div>
+          <span class="${styles.department}">#DEP#</span>
+        </div>
       </div>
       <div class="${styles['send-bless']}">
-        <button class="${styles.darkButton}">#MAILTO#</button>
+        <div class="${styles.darkButton}">שליחת ברכה</div>
       </div>
-    </a>
-    `
+    </a>`
   }
 
   public render(): void {
@@ -96,65 +96,53 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
     if (this.properties.Debug == true) {
       this.buildHtml([{
         PictureURL: "https://images.squarespace-cdn.com/content/v1/5a7c0544d74cffa3a6ce66b3/1587740850248-HT0QC4V60Y17PK8D1A6F/ke17ZwdGBToddI8pDm48kFWxnDtCdRm2WA9rXcwtIYR7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z5QPOohDIaIeljMHgDF5CVlOqpeNLcJ80NK65_fV7S1UcTSrQkGwCGRqSxozz07hWZrYGYYH8sg4qn8Lpf9k1pYMHPsat2_S1jaQY3SwdyaXg/%D7%AA%D7%9E%D7%95%D7%A0%D7%AA+%D7%A0%D7%95%D7%A3+-+%D7%90%D7%92%D7%9D++%D7%92%D7%90%D7%A8%D7%93%D7%94+%D7%90%D7%99%D7%98%D7%9C%D7%99%D7%94.jpg?format=2500w",
-        PreferredName: "יניב גולדגלס",
+        PreferredName: "רונית שרייבר",
         RefinableString99: "5/20/2000 12:00:00 AM",
+        RefinableString97: "קיסריות",
         Title: "רונית שרייבר",
         WorkEmail: "tehila1728@gmail.com",
         date: new Date('Sat May 20 2000 00:00:00 GMT+0300 (Israel Daylight Time)'),
         showDateStr: "20.4",
-        Message: "שלח ברכה"
       }, {
         PictureURL: 'https://www.sananes.co.il/media/catalog/product/cache/1/thumbnail/795x/17f82f742ffe127f42dca9de82fb58b1/0/1/018ve.jpg',
         FirstName: 'refaeli',
-        PreferredName: 'תהילה',
+        PreferredName: 'תהילה רפאלי',
         RefinableString99: "5/20/2000 12:00:00 AM",
+        RefinableString97: "מתארסות",
+        Title: 'refaeli',
+        date: new Date('Sat May 20 2000 00:00:00 GMT+0300 (Israel Daylight Time)'),
+        showDateStr: "21.4",
+        WorkEmail: "tehila1728@gmail.com",
+      }, {
+        PictureURL: 'https://www.sananes.co.il/media/catalog/product/cache/1/thumbnail/795x/17f82f742ffe127f42dca9de82fb58b1/0/1/018ve.jpg',
+        FirstName: 'refaeli',
+        PreferredName: 'תהילה רפאלי',
+        RefinableString99: "5/20/2000 12:00:00 AM",
+        RefinableString97: "מתארסות",
+        Title: 'refaeli',
+        date: new Date('Sat May 20 2000 00:00:00 GMT+0300 (Israel Daylight Time)'),
+        showDateStr: "22.4",
+        WorkEmail: "tehila1728@gmail.com",
+      }, {
+        PictureURL: 'https://www.sananes.co.il/media/catalog/product/cache/1/thumbnail/795x/17f82f742ffe127f42dca9de82fb58b1/0/1/018ve.jpg',
+        FirstName: 'refaeli',
+        PreferredName: 'תהילה רפאלי',
+        RefinableString99: "5/20/2000 12:00:00 AM",
+        RefinableString97: "מתארסות",
         Title: 'refaeli',
         date: new Date('Sat May 20 2000 00:00:00 GMT+0300 (Israel Daylight Time)'),
         showDateStr: "20.4",
         WorkEmail: "tehila1728@gmail.com",
-        Message: "שליחת ברכה"
-
-
-
       }, {
         PictureURL: 'https://www.sananes.co.il/media/catalog/product/cache/1/thumbnail/795x/17f82f742ffe127f42dca9de82fb58b1/0/1/018ve.jpg',
         FirstName: 'refaeli',
-        PreferredName: 'תהילה',
+        PreferredName: 'תהילה רפאלי',
         RefinableString99: "5/20/2000 12:00:00 AM",
+        RefinableString97: "מתארסות",
         Title: 'refaeli',
         date: new Date('Sat May 20 2000 00:00:00 GMT+0300 (Israel Daylight Time)'),
         showDateStr: "20.4",
         WorkEmail: "tehila1728@gmail.com",
-        Message: "שליחת ברכה"
-
-
-
-      }, {
-        PictureURL: 'https://www.sananes.co.il/media/catalog/product/cache/1/thumbnail/795x/17f82f742ffe127f42dca9de82fb58b1/0/1/018ve.jpg',
-        FirstName: 'refaeli',
-        PreferredName: 'תהילה',
-        RefinableString99: "5/20/2000 12:00:00 AM",
-        Title: 'refaeli',
-        date: new Date('Sat May 20 2000 00:00:00 GMT+0300 (Israel Daylight Time)'),
-        showDateStr: "20.4",
-        WorkEmail: "tehila1728@gmail.com",
-        Message: "שליחת ברכה"
-
-
-
-      }, {
-        PictureURL: 'https://www.sananes.co.il/media/catalog/product/cache/1/thumbnail/795x/17f82f742ffe127f42dca9de82fb58b1/0/1/018ve.jpg',
-        FirstName: 'refaeli',
-        PreferredName: 'תהילה',
-        RefinableString99: "5/20/2000 12:00:00 AM",
-        Title: 'refaeli',
-        date: new Date('Sat May 20 2000 00:00:00 GMT+0300 (Israel Daylight Time)'),
-        showDateStr: "20.4",
-        WorkEmail: "tehila1728@gmail.com",
-        Message: "שליחת ברכה"
-
-
-
       }])
 
       return;
@@ -266,8 +254,14 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
     let myName = this.context.pageContext.user.displayName;
 
     let h2 = '';
-    h2 = `<div class="${styles.spfxBirthdaysSpSearch}">
-            <div class="#SPECIAL# ${styles["flex-col"]} ${this.properties.AddShadow ? styles.shadowWrapper : styles.justPad}">
+    let shadowClass = this.properties.AddShadow ? styles.shadowWrapper : styles.justPad
+    let noBG = false
+    if (this.properties.Template == '3-lines-image-dark') {
+      shadowClass = styles.lineImageDark;
+      noBG = true
+    }
+    h2 = `<div class="${styles.spfxBirthdaysSpSearch} ${noBG ? styles.noBG : ""}">
+            <div class="${styles["flex-col"]} ${shadowClass}">
               <h2>${this.properties.Title ? this.properties.Title : 'ימי הולדת'}</h2>
               <div class="${styles["flex-col"]}">`
 
@@ -284,31 +278,10 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
         .replace('#NAME#', yourName)
         .replace('#DEP#', (x.RefinableString97 ? x.RefinableString97 : ''))
         .replace('#SUFFIX#', this.properties.Suffix ? this.properties.Suffix : '')
-        .replace('#MAILTO#', this.properties.Message ? this.properties.Message : 'שליחת ברכה')
-        .replace('#FIRSTNAME#', firstName)
     }
 
     h2 += '</div></div></div>'
     this.domElement.innerHTML = h2;
-
-    let h3: string;
-    let three_line_dark = document.querySelector('.lines-image-dark');
-    console.log("three_line_dark ", three_line_dark);
-
-    let is_three_line_dark = false;
-    if (three_line_dark != null) {
-      is_three_line_dark = true
-    }
-    if (is_three_line_dark == true) {
-      console.log("the template is dark");
-
-      h3 = h2.replace('#SPECIAL#', `${styles["lines-image-dark"]}`)
-    }
-    else {
-      h3 = h2
-    }
-
-    this.domElement.innerHTML = h3;
   }
 
   public searchOld(querystring, callback) {
