@@ -212,6 +212,13 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
         let bDay = parseInt(dArr[1])
         let bMonth = parseInt(dArr[0])
         up.showDateStr = bDay + '.' + currentMonth
+
+        if (true) {
+          let d = bDay < 10 ? "0" + bDay : bDay;
+          let m = currentMonth < 10 ? "0" + currentMonth : currentMonth;
+          up.showDateStr = d + '/' + m  
+        }
+
         up.date = new Date(2000, currentMonth, bDay)
         if (this.properties.bringAllBirthdays == true) {
           arr2.push(up)
