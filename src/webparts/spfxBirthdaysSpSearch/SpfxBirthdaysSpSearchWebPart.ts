@@ -30,6 +30,7 @@ export interface ISpfxBirthdaysSpSearchWebPartProps {
   //FontColor: string;
   AddShadow: boolean;
   Debug: boolean;
+  bringAllBirthdays: boolean;
 }
 
 export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<ISpfxBirthdaysSpSearchWebPartProps> {
@@ -90,8 +91,6 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
   }
 
   public render(): void {
-    this.properties.Debug = true;
-    //console.log('I R THIS', this)
     this.domElement.innerHTML = `<h2>Loading Birthdays</h2>`
     if (this.properties.Debug == true) {
       this.buildHtml([{
@@ -159,27 +158,24 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
     //nextMonth = nextMonth >= 10 ? nextMonth : '0' + nextMonth
 
     //changed Birthday to RefinableString99
+    let end = "'&sourceid='b09a7990-05ea-4af9-81ef-edfab16c4e31'" +
+      "&rowlimit=1000&selectproperties='Title,WorkEmail,PreferredName,FirstName,PictureURL," +
+      "RefinableString99,RefinableString98,RefinableString97,RefinableString95,Department,Birthday'"
+
     let searchQ = "querytext='RefinableString99:" + currentMonth +
-      " OR RefinableString99:" + nextMonth +
-      "'&sourceid='b09a7990-05ea-4af9-81ef-edfab16c4e31'" +
-      "&rowlimit=1000&selectproperties='Title,WorkEmail,PreferredName,FirstName,PictureURL,RefinableString99'"
+      " OR RefinableString99:" + nextMonth + end
 
     if (this.properties.GetBirthdays && this.properties.GetBirthdays == "Today") {
       let day: any = new Date().getDate()
       day = day >= 10 ? day : '0' + day;
 
       searchQ = "querytext='RefinableString99:" + currentMonth +
-        " AND RefinableString99:" + day +
-        "'&sourceid='b09a7990-05ea-4af9-81ef-edfab16c4e31'" +
-        "&rowlimit=1000&selectproperties='Title,WorkEmail,PreferredName,FirstName,PictureURL," +
-        "RefinableString99,RefinableString98,RefinableString97,Department'"
+        " AND RefinableString99:" + day + end
     }
 
-    //debug
-    //searchQ = "querytext='Birthday:8'&sourceid='b09a7990-05ea-4af9-81ef-edfab16c4e31'" +
-    //searchQ = "querytext='RefinableString99:8'&sourceid='b09a7990-05ea-4af9-81ef-edfab16c4e31'" +
-    //"&rowlimit=1000&selectproperties='Title,WorkEmail,PreferredName,PictureURL,Birthday'"
-    //"&rowlimit=1000&selectproperties='Title,WorkEmail,PreferredName,PictureURL,RefinableString99'"
+    if (this.properties.bringAllBirthdays == true) {
+      searchQ = "querytext='RefinableString99:1900" + end
+    }
 
     this.search(searchQ, (arr) => {
       console.log('arr in search callback', arr);
@@ -215,13 +211,17 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
 
         let bDay = parseInt(dArr[1])
         let bMonth = parseInt(dArr[0])
+        up.showDateStr = bDay + '.' + currentMonth
+        up.date = new Date(2000, currentMonth, bDay)
+        if (this.properties.bringAllBirthdays == true) {
+          arr2.push(up)
+          continue
+        }
 
         if (this.properties.GetBirthdays && this.properties.GetBirthdays == "Today") {
           if (bMonth == currentMonth && bDay == todayDay) {
             //up.showDateStr = dArr[1] + '.' + dArr[0]
             //up.date = new Date(2000, dArr[1], dArr[0])
-            up.showDateStr = bDay + '.' + currentMonth
-            up.date = new Date(2000, currentMonth, bDay)
             arr2.push(up)
           }
         } else if (    //true || //debug // month foreward
@@ -232,8 +232,6 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
         ) {
           //up.showDateStr = dArr[1] + '.' + dArr[0]
           //up.date = new Date(2000, dArr[1], dArr[0])
-          up.showDateStr = bDay + '.' + currentMonth
-          up.date = new Date(2000, currentMonth, bDay)
           arr2.push(up)
         }
 
@@ -392,6 +390,7 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
                 //PropertyPaneTextField('FontColor', {label:'Font Color'}),
                 PropertyPaneCheckbox('AddShadow', { text: 'Add Shadow Box' }),
                 PropertyPaneCheckbox('Debug', { text: 'Debug' }),
+                PropertyPaneCheckbox('bringAllBirthdays', { text: 'Bring All Birthdays' }),
 
               ]//end groupFields
             }

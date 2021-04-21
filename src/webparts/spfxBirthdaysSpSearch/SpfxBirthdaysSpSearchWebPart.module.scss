@@ -22,12 +22,12 @@
   .lineImageDark {
     h2 { color: black; }
     .img {
-      padding-left: 20px;
-      min-width: 72px;
+      padding-left: 15px;
+      min-width: 52px;
       > img {
         border-radius: 50%;
-        width: 70px;
-        height: 70px;
+        width: 55px;
+        height: 55px;
       }
     }
     .details {
@@ -58,13 +58,13 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      color: blue;
     }
 
     .darkButton {
-      color: #34526a;
-      background: #ebf5ff;
-      border: 1px #364366 solid;
+      color: black;
+      /*background: #ebf5ff;*/
+      border: 2px #DA291C solid;
+      background: rgba(218,41,28,0.1);
       border-radius: 14px 5px 5px 5px;
       padding: 3px;
       padding-right: 6px;
@@ -72,7 +72,7 @@
       font-weight: 600;
       min-width: 85px;
     }
-    .name { color: #1e385d; }
+    .name { color: black; }
 
     .boldA {
       font-size: 16px;
