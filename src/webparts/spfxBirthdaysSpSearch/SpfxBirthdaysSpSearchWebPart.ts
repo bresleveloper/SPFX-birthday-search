@@ -28,9 +28,14 @@ export interface ISpfxBirthdaysSpSearchWebPartProps {
   GetBirthdays: string;
   //BGcolor: string;
   //FontColor: string;
+  DelveImage: boolean;
   AddShadow: boolean;
   Debug: boolean;
   bringAllBirthdays: boolean;
+
+  AutoScroll: boolean;
+  AutoScrollTime: number;
+
 }
 
 export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<ISpfxBirthdaysSpSearchWebPartProps> {
@@ -91,6 +96,12 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
   }
 
   public render(): void {
+    if (!this.properties.AutoScrollTime || 
+        isNaN(parseInt(this.properties.AutoScrollTime.toString()))) {
+      this.properties.AutoScrollTime = 1500
+    }
+
+
     this.domElement.innerHTML = `<h2>Loading Birthdays</h2>`
     if (this.properties.Debug == true) {
       this.buildHtml([{
@@ -207,38 +218,45 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
         let dArr = up.RefinableString99.split(" ")[0].split("/")
         let todayDay = new Date().getDate()
         //let bDay = parseInt(dArr[0])
-        console.log('dArr', dArr);
+        //console.log('dArr', dArr);
 
         let bDay = parseInt(dArr[1])
         let bMonth = parseInt(dArr[0])
-        up.showDateStr = bDay + '.' + currentMonth
+        up.showDateStr = bDay + '.' + bMonth
 
         if (true) {
           let d = bDay < 10 ? "0" + bDay : bDay;
-          let m = currentMonth < 10 ? "0" + currentMonth : currentMonth;
+          let m = bMonth < 10 ? "0" + bMonth : bMonth;
           up.showDateStr = d + '/' + m  
         }
 
-        up.date = new Date(2000, currentMonth, bDay)
+        up.date = new Date(2000, bMonth, bDay)
         if (this.properties.bringAllBirthdays == true) {
           arr2.push(up)
           continue
         }
 
+        if (bMonth == currentMonth) {
+          console.log(
+            `bMonth(${bMonth}) == currentMonth(${currentMonth}) && bDay(${bDay}) >= todayDay(${todayDay})`,
+            (bMonth == currentMonth && bDay >= todayDay) );
+        }
+        if (bMonth == nextMonth) {
+          console.log(
+            `bMonth(${bMonth}) == nextMonth(${nextMonth}) && bDay(${bDay}) <= todayDay(${todayDay})`,
+            (bMonth == nextMonth && bDay <= todayDay));
+        }
+        
         if (this.properties.GetBirthdays && this.properties.GetBirthdays == "Today") {
           if (bMonth == currentMonth && bDay == todayDay) {
-            //up.showDateStr = dArr[1] + '.' + dArr[0]
-            //up.date = new Date(2000, dArr[1], dArr[0])
             arr2.push(up)
           }
         } else if (    //true || //debug // month foreward
           //(dArr[1] == currentMonth && bDay >= todayDay) ||
           //(dArr[1] == nextMonth && bDay <= todayDay)
-          (currentMonth == currentMonth && bDay >= todayDay) ||
-          (currentMonth == nextMonth && bDay <= todayDay)
+          (bMonth == currentMonth && bDay >= todayDay) ||
+          (bMonth == nextMonth && bDay <= todayDay)
         ) {
-          //up.showDateStr = dArr[1] + '.' + dArr[0]
-          //up.date = new Date(2000, dArr[1], dArr[0])
           arr2.push(up)
         }
 
@@ -275,6 +293,11 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
       const x = arr2[i];
       let yourName = x['PreferredName'] ? x['PreferredName'] : x['Title']
       let firstName = x['FirstName'] ? x['FirstName'] : x['']
+      let img = x.PictureURL ? "<img src=\"" + x.PictureURL + "\">" : ''
+      if (this.properties.DelveImage == true) {
+        img = "https://eur.delve.office.com/mt/v3/people/profileimage?userId=" + 
+          x.WorkEmail.replace("@", "%40")
+      }
 
       h2 += t.replace('#MAILTO#', `mailto:${x.WorkEmail}?subject=Happy Birthday From ${myName}`)
         .replace('#IMG#', (x.PictureURL ? "<img src=\"" + x.PictureURL + "\">" : ''))
@@ -287,6 +310,58 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
 
     h2 += '</div></div></div>'
     this.domElement.innerHTML = h2;
+
+    this.runCodeAfter()
+  }
+
+  public runCodeAfter(){
+    if (this.properties.AutoScroll != true) {
+      return
+    }
+    let itemH = 79
+    if (this.properties.Template == '3-lines-image-dark') {
+
+    }
+
+    window['bdctx'] = {
+      elem : document.querySelector(".spfxBirthdaysSpSearch_c7d8290b "),
+      lastScrollValue : 0,
+      double_lastScrollValue : 0,
+      scrollOptions : { top: 79, left: 0, behavior: 'smooth' },
+      mouse:0,
+      intervalFN : ()=>{
+        window['bdctx'].intervalID = window.setInterval(() => {
+          let x = window['bdctx']
+          x.double_lastScrollValue = x.lastScrollValue //last
+          x.lastScrollValue = x.elem.scrollTop // after a scroll, this is current
+          if (x.double_lastScrollValue > 0 && x.double_lastScrollValue == x.lastScrollValue){
+            x.elem.scrollBy({ top: x.elem.scrollHeight * -1, left: 0, behavior: 'smooth' });
+          } else {
+            if (x.elem.scrollTop == 0){
+              x.elem.scrollBy({ top: 52, left: 0, behavior: 'smooth' });
+            } else {
+              x.elem.scrollBy(x.scrollOptions);
+            }
+          }
+        }, this.properties.AutoScrollTime);
+      }
+    }
+
+    this.domElement.onmouseover = () => {
+      window['bdctx'].mouse = 1;
+      clearInterval(window['bdctx'].intervalID)
+    }
+    this.domElement.onmouseout  = () => {
+      window['bdctx'].mouse = 0;
+      window['bdctx'].intervalFN()
+    }
+
+    if (window['bdctx'].intervalID) {
+      clearInterval(window['bdctx'].intervalID)
+    }
+
+    window['bdctx'].intervalFN()
+   
   }
 
   public searchOld(querystring, callback) {
@@ -395,10 +470,13 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
                 }),
                 //PropertyPaneTextField('BGcolor', {label:'Background Color'}),
                 //PropertyPaneTextField('FontColor', {label:'Font Color'}),
+                PropertyPaneCheckbox('DelveImage', { text: 'Use Delve Image' }),
                 PropertyPaneCheckbox('AddShadow', { text: 'Add Shadow Box' }),
                 PropertyPaneCheckbox('Debug', { text: 'Debug' }),
                 PropertyPaneCheckbox('bringAllBirthdays', { text: 'Bring All Birthdays' }),
 
+                PropertyPaneCheckbox('AutoScroll', { text: 'AutoScroll' }),
+                PropertyPaneTextField('AutoScrollTime', {label:'AutoScrollTime'}),
               ]//end groupFields
             }
           ]
