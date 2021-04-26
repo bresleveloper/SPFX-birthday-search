@@ -3,7 +3,7 @@
   "solution": {
     "name": "spfx-birthdays-sp-search-client-side-solution",
     "id": "446c1ed7-111e-4299-8fdc-3050e7fc1105",
-    "version": "1.0.0.0",
+    "version": "1.0.0.2",
     "includeClientSideAssets": true,
     "skipFeatureDeployment": true,
     "isDomainIsolated": true,

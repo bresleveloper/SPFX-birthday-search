@@ -5,6 +5,7 @@
   > div { background-color: inherit; }
 }
 
+
 .spfxBirthdaysSpSearch {
   overflow: auto;
   max-height: 380px;
@@ -20,10 +21,18 @@
   > div { background-color: #68c8d1; }
 
   .lineImageDark {
+    a, a:hover, a:visited, a:active{
+      text-decoration: none;
+    }
+
     h2 { color: black; }
     .img {
+      position: relative;
       padding-left: 15px;
-      min-width: 52px;
+
+      min-width: 55px;
+      min-height: 55px;
+  
       > img {
         border-radius: 50%;
         width: 55px;
@@ -71,9 +80,10 @@
       padding-right: 6px;
       padding-left: 6px;
       font-weight: 600;
-      min-width: 85px;
+      min-width: 90px;
     }
-    .name { color: black; }
+    .name { color: black; cursor: pointer; }
+    .name.redName { color: #DA291C; }
 
     .boldA {
       font-size: 16px;
@@ -241,4 +251,35 @@
       display: inline-block;
     }
   }
+
+
+  .initialsCopied{
+    border-radius: 50%;
+    color: #fff;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 53px;
+    position: absolute;
+    top: 1px;
+    left: 16px;
+    z-index: -1;
+    width: 53px;
+    height: 53px;
+    text-align: center;
+  }
+
+
+
+}
+
+
+
+
+.spfxBirthdaysSpSearch.noBG::-webkit-scrollbar {
+  display: none;
+}
+
+.spfxBirthdaysSpSearch.noBG {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }

@@ -76,23 +76,23 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
     </a>
   `,
   '3-lines-image-dark': `
-    <a class="lines-image-dark ${styles.lineImageDark} ${styles.flex} ${styles.cleanA}" href="#MAILTO#">
+    <div class="${styles.lineImageDark} ${styles.flex} ${styles.cleanA}">
       <div class="${styles.flex}">
         <div class="${styles.img}">#IMG#</div>
-        <div class=" ${styles["flex-col"]}">
-          <div class="">
-              <span class="${styles.preffix}">#PREFFIX#</span>
-              <span class="${styles.name} ${styles.boldA}">#NAME#</span>
-              <span class="${styles.suffix}">#SUFFIX#</span>
-              <span class="date">#DATE#</span>
-          </div>
+        <div class="${styles["flex-col"]}">
+            <div>
+                <span class="${styles.preffix}">#PREFFIX#</span>
+                <span data-aad="#AADID#" class="${styles.name} ${styles.boldA} #RREEDD#">#NAME#</span>
+                <span class="${styles.suffix}">#SUFFIX#</span>
+                <span class="date">#DATE#</span>
+            </div>
           <span class="${styles.department}">#DEP#</span>
         </div>
       </div>
-      <div class="${styles['send-bless']}">
+      <a class="${styles['send-bless']}"  href="#MAILTO#">
         <div class="${styles.darkButton}">שליחת ברכה</div>
-      </div>
-    </a>`
+      </a>
+    </div>`
   }
 
   public render(): void {
@@ -113,6 +113,7 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
         WorkEmail: "tehila1728@gmail.com",
         date: new Date('Sat May 20 2000 00:00:00 GMT+0300 (Israel Daylight Time)'),
         showDateStr: "20.4",
+        AADObjectID : "xxx"
       }, {
         PictureURL: 'https://www.sananes.co.il/media/catalog/product/cache/1/thumbnail/795x/17f82f742ffe127f42dca9de82fb58b1/0/1/018ve.jpg',
         FirstName: 'refaeli',
@@ -123,6 +124,7 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
         date: new Date('Sat May 20 2000 00:00:00 GMT+0300 (Israel Daylight Time)'),
         showDateStr: "21.4",
         WorkEmail: "tehila1728@gmail.com",
+        AADObjectID : "xxx"
       }, {
         PictureURL: 'https://www.sananes.co.il/media/catalog/product/cache/1/thumbnail/795x/17f82f742ffe127f42dca9de82fb58b1/0/1/018ve.jpg',
         FirstName: 'refaeli',
@@ -133,6 +135,7 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
         date: new Date('Sat May 20 2000 00:00:00 GMT+0300 (Israel Daylight Time)'),
         showDateStr: "22.4",
         WorkEmail: "tehila1728@gmail.com",
+        AADObjectID : "xxx"
       }, {
         PictureURL: 'https://www.sananes.co.il/media/catalog/product/cache/1/thumbnail/795x/17f82f742ffe127f42dca9de82fb58b1/0/1/018ve.jpg',
         FirstName: 'refaeli',
@@ -143,6 +146,7 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
         date: new Date('Sat May 20 2000 00:00:00 GMT+0300 (Israel Daylight Time)'),
         showDateStr: "20.4",
         WorkEmail: "tehila1728@gmail.com",
+        AADObjectID : "xxx"
       }, {
         PictureURL: 'https://www.sananes.co.il/media/catalog/product/cache/1/thumbnail/795x/17f82f742ffe127f42dca9de82fb58b1/0/1/018ve.jpg',
         FirstName: 'refaeli',
@@ -153,6 +157,7 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
         date: new Date('Sat May 20 2000 00:00:00 GMT+0300 (Israel Daylight Time)'),
         showDateStr: "20.4",
         WorkEmail: "tehila1728@gmail.com",
+        AADObjectID : "xxx"
       }])
 
       return;
@@ -171,20 +176,24 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
     //changed Birthday to RefinableString99
     let end = "'&sourceid='b09a7990-05ea-4af9-81ef-edfab16c4e31'" +
       "&rowlimit=1000&selectproperties='Title,WorkEmail,PreferredName,FirstName,PictureURL," +
-      "RefinableString99,RefinableString98,RefinableString97,RefinableString95,Department,Birthday'"
+      "RefinableString99,RefinableString98,RefinableString97,RefinableString95,Department,Birthday,AADObjectID'"
 
     let searchQ = "querytext='RefinableString99:" + currentMonth +
       " OR RefinableString99:" + nextMonth + end
 
-    if (this.properties.GetBirthdays && this.properties.GetBirthdays == "Today") {
-      let day: any = new Date().getDate()
-      day = day >= 10 ? day : '0' + day;
-
-      searchQ = "querytext='RefinableString99:" + currentMonth +
-        " AND RefinableString99:" + day + end
-    }
-
-    if (this.properties.bringAllBirthdays == true) {
+      if (this.properties.GetBirthdays && this.properties.GetBirthdays == "Today") {
+        let day: any = new Date().getDate()
+        day = day >= 10 ? day : '0' + day;
+        
+        searchQ = "querytext='RefinableString99:" + currentMonth +
+          " AND RefinableString99:" + day + end
+      }
+  
+      if (this.properties.GetBirthdays && this.properties.GetBirthdays == "Current Month") {
+        searchQ = "querytext='RefinableString99:" + currentMonth + end
+      }
+  
+        if (this.properties.bringAllBirthdays == true) {
       searchQ = "querytext='RefinableString99:1900" + end
     }
 
@@ -236,7 +245,7 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
           continue
         }
 
-        if (bMonth == currentMonth) {
+        /*if (bMonth == currentMonth) {
           console.log(
             `bMonth(${bMonth}) == currentMonth(${currentMonth}) && bDay(${bDay}) >= todayDay(${todayDay})`,
             (bMonth == currentMonth && bDay >= todayDay) );
@@ -245,12 +254,20 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
           console.log(
             `bMonth(${bMonth}) == nextMonth(${nextMonth}) && bDay(${bDay}) <= todayDay(${todayDay})`,
             (bMonth == nextMonth && bDay <= todayDay));
-        }
+        }*/
         
+        up.today = bMonth == currentMonth && bDay == todayDay
+
         if (this.properties.GetBirthdays && this.properties.GetBirthdays == "Today") {
           if (bMonth == currentMonth && bDay == todayDay) {
             arr2.push(up)
           }
+        } else if (this.properties.GetBirthdays && 
+                  this.properties.GetBirthdays == "Current Month" && 
+                  bMonth == currentMonth)
+        {
+            //current month only
+            arr2.push(up)
         } else if (    //true || //debug // month foreward
           //(dArr[1] == currentMonth && bDay >= todayDay) ||
           //(dArr[1] == nextMonth && bDay <= todayDay)
@@ -283,7 +300,7 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
       shadowClass = styles.lineImageDark;
       noBG = true
     }
-    h2 = `<div class="${styles.spfxBirthdaysSpSearch} ${noBG ? styles.noBG : ""}">
+    h2 = `<div class="${styles.spfxBirthdaysSpSearch} ${noBG ? styles.noBG : ''}" b-version="1.0.0.2">
             <div class="${styles["flex-col"]} ${shadowClass}">
               <h2>${this.properties.Title ? this.properties.Title : 'ימי הולדת'}</h2>
               <div class="${styles["flex-col"]}">`
@@ -291,21 +308,49 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
     let t = this.properties.Template ? this.templates[this.properties.Template] : this.templates['1 line no image'];
     for (let i = 0; i < arr2.length; i++) {
       const x = arr2[i];
+      if (!x.WorkEmail) {
+        console.log("no email for", x);
+        
+        continue
+      }
       let yourName = x['PreferredName'] ? x['PreferredName'] : x['Title']
-      let firstName = x['FirstName'] ? x['FirstName'] : x['']
       let img = x.PictureURL ? "<img src=\"" + x.PictureURL + "\">" : ''
-      if (this.properties.DelveImage == true) {
-        img = "https://eur.delve.office.com/mt/v3/people/profileimage?userId=" + 
-          x.WorkEmail.replace("@", "%40")
+
+
+      let randInitialsColors = [
+        'background-color: rgb(73, 130, 5)',
+        'background-color: rgb(79, 107, 237)',
+        'background-color: rgb(135, 100, 184)',
+        'background-color: rgb(0, 91, 112)',
+      ]
+      if (this.properties.Template == '3-lines-image-dark') {
+        img = `<img src="https://delekcoil.sharepoint.com/sites/HOME/_layouts/15/UserPhoto.aspx` + 
+                `?size=m&accountName=${x.WorkEmail}&default=none" onerror="this.remove()" />`
+        let na = yourName.split(" ");
+        let initialz = na.map(n => n[0].toString()).join("")
+        let iniStyle = ` style="${randInitialsColors[i%4]}" `
+        img += `<div class="${styles.initialsCopied}" ${iniStyle}>${initialz}</div>`
       }
 
+      /*if (this.properties.DelveImage == true) {
+        //img = "<img src=\"" + "https://eur.delve.office.com/mt/v3/people/profileimage?userId=" + 
+        img = "<img src=\"" + "https://outlook.office.com/owa/service.svc/s/GetPersonaPhoto?email=" + 
+          x.WorkEmail.replace("@", "%40") + "&UA=0&size=HR96x96\">"
+      }*/
+
+      //https://eur.delve.office.com/?u=ffa1cd00-3ed5-4fd2-ab85-77574588f388&v=profiledetails
+      let delve = `https://eur.delve.office.com/?u=${x.AADObjectID}&v=profiledetails`
+
       h2 += t.replace('#MAILTO#', `mailto:${x.WorkEmail}?subject=Happy Birthday From ${myName}`)
-        .replace('#IMG#', (x.PictureURL ? "<img src=\"" + x.PictureURL + "\">" : ''))
+        .replace('#IMG#', img)
         .replace('#PREFFIX#', this.properties.Preffix ? this.properties.Preffix : '')
         .replace('#DATE#', x.showDateStr)
         .replace('#NAME#', yourName)
         .replace('#DEP#', (x.RefinableString97 ? x.RefinableString97 : ''))
         .replace('#SUFFIX#', this.properties.Suffix ? this.properties.Suffix : '')
+        .replace('#RREEDD#', x.today ? styles.redName : '')
+        .replace('#DELVE#', delve)
+        .replace('#AADID#', x.AADObjectID)
     }
 
     h2 += '</div></div></div>'
@@ -315,6 +360,10 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
   }
 
   public runCodeAfter(){
+    if (location.search.indexOf('?Mode=Edit') > -1) {
+      return//edit mode
+    }
+
     if (this.properties.AutoScroll != true) {
       return
     }
@@ -324,21 +373,26 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
     }
 
     window['bdctx'] = {
-      elem : document.querySelector(".spfxBirthdaysSpSearch_c7d8290b "),
+      //elem : document.querySelector(".spfxBirthdaysSpSearch_c7d8290b "),
+      elem : this.domElement.firstElementChild,
       lastScrollValue : 0,
       double_lastScrollValue : 0,
-      scrollOptions : { top: 79, left: 0, behavior: 'smooth' },
+      scrollOptions : { top: 56, left: 0, behavior: 'smooth' },
       mouse:0,
       intervalFN : ()=>{
         window['bdctx'].intervalID = window.setInterval(() => {
           let x = window['bdctx']
+          if (!x.elem) {
+            console.warn("no birthday element in interval");
+            return
+          }
           x.double_lastScrollValue = x.lastScrollValue //last
           x.lastScrollValue = x.elem.scrollTop // after a scroll, this is current
           if (x.double_lastScrollValue > 0 && x.double_lastScrollValue == x.lastScrollValue){
             x.elem.scrollBy({ top: x.elem.scrollHeight * -1, left: 0, behavior: 'smooth' });
           } else {
             if (x.elem.scrollTop == 0){
-              x.elem.scrollBy({ top: 52, left: 0, behavior: 'smooth' });
+              x.elem.scrollBy({ top: 76, left: 0, behavior: 'smooth' });
             } else {
               x.elem.scrollBy(x.scrollOptions);
             }
@@ -362,6 +416,16 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
 
     window['bdctx'].intervalFN()
    
+
+    console.log('"[data-aad]"', document.querySelectorAll("[data-aad]"));
+    
+    document.querySelectorAll("[data-aad]").forEach(name => {
+      name['onclick'] = (event)=>{
+        let id = event.target.getAttribute("data-aad")
+        console.log('link click', id);
+        window.open(`https://eur.delve.office.com/?u=${id}&v=profiledetails`, "_blank")
+      }
+    })
   }
 
   public searchOld(querystring, callback) {
@@ -464,8 +528,9 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
                 PropertyPaneDropdown('GetBirthdays', {
                   label: 'Get Birthdays',
                   options: [
-                    { key: 'Month Forward', text: 'This Forward' },
+                    { key: 'Month Forward', text: 'Forward 30 Days' },
                     { key: 'Today', text: 'Today' },
+                    { key: 'Current Month', text: 'Current Month' },
                   ]
                 }),
                 //PropertyPaneTextField('BGcolor', {label:'Background Color'}),
