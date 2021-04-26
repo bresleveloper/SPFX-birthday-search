@@ -77,12 +77,12 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
   `,
   '3-lines-image-dark': `
     <div class="${styles.lineImageDark} ${styles.flex} ${styles.cleanA}">
-      <div class="${styles.flex}">
+      <div class="${styles.flex}" data-aad="#AADID#">
         <div class="${styles.img}">#IMG#</div>
         <div class="${styles["flex-col"]}">
             <div>
                 <span class="${styles.preffix}">#PREFFIX#</span>
-                <span data-aad="#AADID#" class="${styles.name} ${styles.boldA} #RREEDD#">#NAME#</span>
+                <span class="${styles.name} ${styles.boldA} #RREEDD#">#NAME#</span>
                 <span class="${styles.suffix}">#SUFFIX#</span>
                 <span class="date">#DATE#</span>
             </div>
@@ -420,6 +420,7 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
     console.log('"[data-aad]"', document.querySelectorAll("[data-aad]"));
     
     document.querySelectorAll("[data-aad]").forEach(name => {
+      name.style.curson = "pointer"
       name['onclick'] = (event)=>{
         let id = event.target.getAttribute("data-aad")
         console.log('link click', id);
