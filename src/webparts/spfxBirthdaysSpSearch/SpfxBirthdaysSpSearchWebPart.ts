@@ -340,13 +340,17 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
 
       //https://eur.delve.office.com/?u=ffa1cd00-3ed5-4fd2-ab85-77574588f388&v=profiledetails
       let delve = `https://eur.delve.office.com/?u=${x.AADObjectID}&v=profiledetails`
+      let dep = x.RefinableString97 ? x.RefinableString97 : ''
+      if (screen.width < 500) {
+        dep = ''
+      }
 
       h2 += t.replace('#MAILTO#', `mailto:${x.WorkEmail}?subject=Happy Birthday From ${myName}`)
         .replace('#IMG#', img)
         .replace('#PREFFIX#', this.properties.Preffix ? this.properties.Preffix : '')
         .replace('#DATE#', x.showDateStr)
         .replace('#NAME#', yourName)
-        .replace('#DEP#', (x.RefinableString97 ? x.RefinableString97 : ''))
+        .replace('#DEP#', dep)
         .replace('#SUFFIX#', this.properties.Suffix ? this.properties.Suffix : '')
         .replace('#RREEDD#', x.today ? styles.redName : '')
         .replace('#DELVE#', delve)
@@ -420,9 +424,10 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
     console.log('"[data-aad]"', document.querySelectorAll("[data-aad]"));
     
     document.querySelectorAll("[data-aad]").forEach(name => {
-      name.style.curson = "pointer"
+      name['style'].cursor = "pointer"
       name['onclick'] = (event)=>{
-        let id = event.target.getAttribute("data-aad")
+        //let id = event.target.getAttribute("data-aad")
+        let id = name.getAttribute("data-aad")
         console.log('link click', id);
         window.open(`https://eur.delve.office.com/?u=${id}&v=profiledetails`, "_blank")
       }
