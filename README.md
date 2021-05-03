@@ -10,6 +10,8 @@ Search Mapping:
 * `People:Department` to `RefinableString97`
 * `People:SPS-DisabledUser` (if exist) to `RefinableString95`
 
+if `RefinableString95` equals 0 then the user is disabled
+
 `https://github.com/bresleveloper/SPFX-birthday-search`
 
 
