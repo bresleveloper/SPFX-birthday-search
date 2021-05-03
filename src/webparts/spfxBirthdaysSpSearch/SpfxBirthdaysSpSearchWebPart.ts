@@ -308,6 +308,9 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
     let t = this.properties.Template ? this.templates[this.properties.Template] : this.templates['1 line no image'];
     for (let i = 0; i < arr2.length; i++) {
       const x = arr2[i];
+      if (x.RefinableString95 && x.RefinableString95 == 1) {
+        continue
+      }
       if (!x.WorkEmail) {
         console.log("no email for", x);
         
