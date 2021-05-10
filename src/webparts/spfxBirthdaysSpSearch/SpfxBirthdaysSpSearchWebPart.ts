@@ -270,11 +270,9 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
         {
             //current month only
             arr2.push(up)
-        } else if (    //true || //debug // month foreward
-          //(dArr[1] == currentMonth && bDay >= todayDay) ||
-          //(dArr[1] == nextMonth && bDay <= todayDay)
-          (bMonth == currentMonth && bDay >= todayDay) ||
-          (bMonth == nextMonth && bDay <= todayDay)
+        } else if ( this.properties.GetBirthdays == "Month Forward" &&  // month foreward
+          ( (bMonth == currentMonth && bDay >= todayDay) ||
+            (bMonth == nextMonth && bDay <= todayDay))
         ) {
           arr2.push(up)
         }
