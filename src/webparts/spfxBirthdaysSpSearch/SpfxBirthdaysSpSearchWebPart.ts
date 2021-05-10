@@ -260,6 +260,7 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
         
         up.today = bMonth == currentMonth && bDay == todayDay
 
+        //all this should be a SWITCH
         if (this.properties.GetBirthdays && this.properties.GetBirthdays == "Today") {
           if (bMonth == currentMonth && bDay == todayDay) {
             arr2.push(up)
