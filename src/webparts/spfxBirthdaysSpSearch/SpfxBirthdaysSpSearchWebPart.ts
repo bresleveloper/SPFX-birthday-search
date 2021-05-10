@@ -90,7 +90,9 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
         </div>
       </div>
       <a class="${styles['send-bless']}"  href="#MAILTO#">
-        <div class="${styles.darkButton}">שליחת ברכה</div>
+        <div class="${styles.sendBlessImg}">
+          <img src="/sites/HOME/shared%20images/bdSend.jpg"/>
+        </div>
       </a>
     </div>`
   }
