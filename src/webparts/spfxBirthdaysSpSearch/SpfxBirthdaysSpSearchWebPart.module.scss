@@ -87,24 +87,30 @@
       padding-left: 6px;
       font-weight: 600;
       min-width: 90px;
+      
 
       @media screen and (max-width: 600px) {
         min-width: unset;
         width: 42px;
       }
+    }
 
-      .sendBlessImg{
-        min-width: 55px;
-        
-        img{
-          width: 100%;
-        }
-        
-        @media screen and (max-width: 600px) {
-          min-width: unset;
-          width: 42px;
+    .sendBlessImg{
+      /*min-width: 55px;*/
+      
+      img{
+        /*width: 100%;*/
+        width: 52px;
+
+        @media screen and (max-width: 350px) {
+          width: 41px;
         }
       }
+      
+     /* @media screen and (max-width: 350px) {
+        min-width: unset;
+        width: 42px;
+      }*/
     }
 
     .name { color: black; cursor: pointer; }
