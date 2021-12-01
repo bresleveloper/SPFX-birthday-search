@@ -21,3 +21,5 @@ if `RefinableString95` equals 0 then the user is disabled
 * `gulp bundle --ship`
 * `gulp package-solution --ship`
 
+gulp build; gulp bundle --ship; gulp package-solution --ship
+

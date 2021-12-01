@@ -331,7 +331,10 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
         img = `<img src="https://delekcoil.sharepoint.com/sites/HOME/_layouts/15/UserPhoto.aspx` + 
                 `?size=m&accountName=${x.WorkEmail}&default=none" onerror="this.remove()" />`
         let na = yourName.split(" ");
-        let initialz = na.map(n => n[0].toString()).join("")
+        let initialz = na.map(n => 
+          //there is a case with double space that causes n to be empty string
+          n && n.length > 0 ? n[0].toString() : ""
+        ).join("")
         let iniStyle = ` style="${randInitialsColors[i%4]}" `
         img += `<div class="${styles.initialsCopied}" ${iniStyle}>${initialz}</div>`
       }
