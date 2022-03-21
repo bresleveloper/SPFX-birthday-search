@@ -301,7 +301,7 @@ export default class SpfxBirthdaysSpSearchWebPart extends BaseClientSideWebPart<
       shadowClass = styles.lineImageDark;
       noBG = true
     }
-    h2 = `<div class="${styles.spfxBirthdaysSpSearch} ${noBG ? styles.noBG : ''}" b-version="1.0.0.2">
+    h2 = `<div class="${styles.spfxBirthdaysSpSearch} ${noBG ? styles.noBG : ''}" b-version="1.0.0.5">
             <div class="${styles["flex-col"]} ${shadowClass}">
               <h2>${this.properties.Title ? this.properties.Title : 'ימי הולדת'}</h2>
               <div class="${styles["flex-col"]}">`

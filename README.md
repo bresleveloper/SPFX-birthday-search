@@ -23,3 +23,7 @@ if `RefinableString95` equals 0 then the user is disabled
 
 gulp build; gulp bundle --ship; gulp package-solution --ship
 
+
+
+npm ls -g --depth=0
+
